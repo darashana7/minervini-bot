@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: minervini-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python render_bot.py
+    envVars:
+      - key: BOT_TOKEN
+        value: 8557128929:AAFrPNOsb-T_ygpaqu2MI0DbuZYEA2JT1rg
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    healthCheckPath: /health

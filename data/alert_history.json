@@ -1,0 +1,3572 @@
+{
+  "NATIONALUM": {
+    "last_alert": "2025-12-05T16:34:01.413116",
+    "alert_count": 1,
+    "details": {
+      "symbol": "NATIONALUM",
+      "name": "National Aluminium Company Limited",
+      "passes_all": true,
+      "current_price": 273.15,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 273.15,
+        "sma_50": 236.33,
+        "sma_150": 201.67,
+        "sma_200": 193.66,
+        "week_52_high": 274.5,
+        "week_52_low": 134.11,
+        "pct_above_52w_low": 103.68,
+        "pct_from_52w_high": 0.49,
+        "volume": 10795980,
+        "avg_volume_20d": 14644054
+      },
+      "score": 9
+    }
+  },
+  "ABCAPITAL": {
+    "last_alert": "2025-12-05T16:34:02.517297",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ABCAPITAL",
+      "name": "Aditya Birla Capital Limited",
+      "passes_all": true,
+      "current_price": 358.75,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 358.75,
+        "sma_50": 319.49,
+        "sma_150": 278.48,
+        "sma_200": 252.81,
+        "week_52_high": 360.6,
+        "week_52_low": 149.01,
+        "pct_above_52w_low": 140.76,
+        "pct_from_52w_high": 0.51,
+        "volume": 4437936,
+        "avg_volume_20d": 4401399
+      },
+      "score": 9
+    }
+  },
+  "COFORGE": {
+    "last_alert": "2025-12-05T16:34:03.946681",
+    "alert_count": 1,
+    "details": {
+      "symbol": "COFORGE",
+      "name": "Coforge Limited",
+      "passes_all": true,
+      "current_price": 1977.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1977.9,
+        "sma_50": 1763.51,
+        "sma_150": 1750.9,
+        "sma_200": 1679.7,
+        "week_52_high": 1988.2,
+        "week_52_low": 1185.73,
+        "pct_above_52w_low": 66.81,
+        "pct_from_52w_high": 0.52,
+        "volume": 1822500,
+        "avg_volume_20d": 1375826
+      },
+      "score": 9
+    }
+  },
+  "HINDCOPPER": {
+    "last_alert": "2025-12-05T16:34:04.874425",
+    "alert_count": 1,
+    "details": {
+      "symbol": "HINDCOPPER",
+      "name": "Hindustan Copper Limited",
+      "passes_all": true,
+      "current_price": 371.85,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 371.85,
+        "sma_50": 337.14,
+        "sma_150": 279.93,
+        "sma_200": 263.8,
+        "week_52_high": 374.0,
+        "week_52_low": 182.88,
+        "pct_above_52w_low": 103.33,
+        "pct_from_52w_high": 0.57,
+        "volume": 41880318,
+        "avg_volume_20d": 12929581
+      },
+      "score": 9
+    }
+  },
+  "ASIANPAINT": {
+    "last_alert": "2025-12-05T16:34:05.789609",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ASIANPAINT",
+      "name": "Asian Paints Limited",
+      "passes_all": true,
+      "current_price": 2968.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 2968.5,
+        "sma_50": 2607.15,
+        "sma_150": 2462.0,
+        "sma_200": 2420.08,
+        "week_52_high": 2985.7,
+        "week_52_low": 2102.05,
+        "pct_above_52w_low": 41.22,
+        "pct_from_52w_high": 0.58,
+        "volume": 944966,
+        "avg_volume_20d": 1762356
+      },
+      "score": 9
+    }
+  },
+  "HEROMOTOCO": {
+    "last_alert": "2025-12-05T16:34:06.813783",
+    "alert_count": 1,
+    "details": {
+      "symbol": "HEROMOTOCO",
+      "name": "Hero MotoCorp Limited",
+      "passes_all": true,
+      "current_price": 6350.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 6350.5,
+        "sma_50": 5677.79,
+        "sma_150": 4914.22,
+        "sma_200": 4603.09,
+        "week_52_high": 6388.5,
+        "week_52_low": 3294.19,
+        "pct_above_52w_low": 92.78,
+        "pct_from_52w_high": 0.59,
+        "volume": 651594,
+        "avg_volume_20d": 789420
+      },
+      "score": 9
+    }
+  },
+  "MUTHOOTFIN": {
+    "last_alert": "2025-12-05T16:34:08.171392",
+    "alert_count": 1,
+    "details": {
+      "symbol": "MUTHOOTFIN",
+      "name": "Muthoot Finance Limited",
+      "passes_all": true,
+      "current_price": 3800.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 3800.1,
+        "sma_50": 3363.74,
+        "sma_150": 2832.11,
+        "sma_200": 2675.12,
+        "week_52_high": 3833.0,
+        "week_52_low": 1899.36,
+        "pct_above_52w_low": 100.07,
+        "pct_from_52w_high": 0.86,
+        "volume": 328562,
+        "avg_volume_20d": 658062
+      },
+      "score": 9
+    }
+  },
+  "EICHERMOT": {
+    "last_alert": "2025-12-05T16:34:09.309171",
+    "alert_count": 1,
+    "details": {
+      "symbol": "EICHERMOT",
+      "name": "Eicher Motors Limited",
+      "passes_all": true,
+      "current_price": 7208.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 7208.0,
+        "sma_50": 6972.13,
+        "sma_150": 6136.8,
+        "sma_200": 5889.66,
+        "week_52_high": 7284.5,
+        "week_52_low": 4586.53,
+        "pct_above_52w_low": 57.16,
+        "pct_from_52w_high": 1.05,
+        "volume": 500998,
+        "avg_volume_20d": 587875
+      },
+      "score": 9
+    }
+  },
+  "FEDERALBNK": {
+    "last_alert": "2025-12-05T16:34:10.327416",
+    "alert_count": 1,
+    "details": {
+      "symbol": "FEDERALBNK",
+      "name": "The Federal Bank Limited",
+      "passes_all": true,
+      "current_price": 259.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 259.2,
+        "sma_50": 228.28,
+        "sma_150": 210.29,
+        "sma_200": 204.42,
+        "week_52_high": 262.0,
+        "week_52_low": 171.62,
+        "pct_above_52w_low": 51.03,
+        "pct_from_52w_high": 1.07,
+        "volume": 5002067,
+        "avg_volume_20d": 8565993
+      },
+      "score": 9
+    }
+  },
+  "LAURUSLABS": {
+    "last_alert": "2025-12-05T16:34:11.433739",
+    "alert_count": 1,
+    "details": {
+      "symbol": "LAURUSLABS",
+      "name": "Laurus Labs Limited",
+      "passes_all": true,
+      "current_price": 1026.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1026.1,
+        "sma_50": 943.61,
+        "sma_150": 822.2,
+        "sma_200": 763.52,
+        "week_52_high": 1040.2,
+        "week_52_low": 500.05,
+        "pct_above_52w_low": 105.2,
+        "pct_from_52w_high": 1.36,
+        "volume": 936825,
+        "avg_volume_20d": 1663163
+      },
+      "score": 9
+    }
+  },
+  "TVSMOTOR": {
+    "last_alert": "2025-12-05T16:34:12.462642",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TVSMOTOR",
+      "name": "TVS Motor Company Limited",
+      "passes_all": true,
+      "current_price": 3665.4,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 3665.4,
+        "sma_50": 3513.19,
+        "sma_150": 3156.0,
+        "sma_200": 2979.12,
+        "week_52_high": 3720.0,
+        "week_52_low": 2162.43,
+        "pct_above_52w_low": 69.5,
+        "pct_from_52w_high": 1.47,
+        "volume": 330998,
+        "avg_volume_20d": 775216
+      },
+      "score": 9
+    }
+  },
+  "AXISBANK": {
+    "last_alert": "2025-12-05T16:34:13.572742",
+    "alert_count": 1,
+    "details": {
+      "symbol": "AXISBANK",
+      "name": "Axis Bank Limited",
+      "passes_all": true,
+      "current_price": 1282.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1282.5,
+        "sma_50": 1224.42,
+        "sma_150": 1169.01,
+        "sma_200": 1145.82,
+        "week_52_high": 1304.0,
+        "week_52_low": 932.7,
+        "pct_above_52w_low": 37.5,
+        "pct_from_52w_high": 1.65,
+        "volume": 2728149,
+        "avg_volume_20d": 5302810
+      },
+      "score": 9
+    }
+  },
+  "SHRIRAMFIN": {
+    "last_alert": "2025-12-05T16:34:14.495283",
+    "alert_count": 1,
+    "details": {
+      "symbol": "SHRIRAMFIN",
+      "name": "Shriram Finance Limited",
+      "passes_all": true,
+      "current_price": 854.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 854.9,
+        "sma_50": 745.17,
+        "sma_150": 673.43,
+        "sma_200": 661.69,
+        "week_52_high": 872.0,
+        "week_52_low": 485.9,
+        "pct_above_52w_low": 75.94,
+        "pct_from_52w_high": 1.96,
+        "volume": 12135078,
+        "avg_volume_20d": 6801660
+      },
+      "score": 9
+    }
+  },
+  "M&M": {
+    "last_alert": "2025-12-05T16:34:15.525686",
+    "alert_count": 1,
+    "details": {
+      "symbol": "M&M",
+      "name": "Mahindra & Mahindra Limited",
+      "passes_all": true,
+      "current_price": 3717.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 3717.1,
+        "sma_50": 3599.59,
+        "sma_150": 3342.27,
+        "sma_200": 3184.81,
+        "week_52_high": 3795.0,
+        "week_52_low": 2405.67,
+        "pct_above_52w_low": 54.51,
+        "pct_from_52w_high": 2.05,
+        "volume": 2393069,
+        "avg_volume_20d": 2237674
+      },
+      "score": 9
+    }
+  },
+  "MOTHERSON": {
+    "last_alert": "2025-12-05T16:34:16.660742",
+    "alert_count": 1,
+    "details": {
+      "symbol": "MOTHERSON",
+      "name": "Samvardhana Motherson International Limited",
+      "passes_all": true,
+      "current_price": 117.05,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 117.05,
+        "sma_50": 107.79,
+        "sma_150": 102.32,
+        "sma_200": 97.86,
+        "week_52_high": 119.6,
+        "week_52_low": 71.33,
+        "pct_above_52w_low": 64.1,
+        "pct_from_52w_high": 2.13,
+        "volume": 8678472,
+        "avg_volume_20d": 25068219
+      },
+      "score": 9
+    }
+  },
+  "UPL": {
+    "last_alert": "2025-12-05T16:34:18.604302",
+    "alert_count": 1,
+    "details": {
+      "symbol": "UPL",
+      "name": "UPL Limited",
+      "passes_all": true,
+      "current_price": 759.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 759.1,
+        "sma_50": 713.5,
+        "sma_150": 686.51,
+        "sma_200": 674.12,
+        "week_52_high": 776.0,
+        "week_52_low": 488.53,
+        "pct_above_52w_low": 55.38,
+        "pct_from_52w_high": 2.18,
+        "volume": 1936514,
+        "avg_volume_20d": 2652890
+      },
+      "score": 9
+    }
+  },
+  "ASHOKLEY": {
+    "last_alert": "2025-12-05T16:34:19.747244",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ASHOKLEY",
+      "name": "Ashok Leyland Limited",
+      "passes_all": true,
+      "current_price": 160.86,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 160.86,
+        "sma_50": 142.88,
+        "sma_150": 129.45,
+        "sma_200": 123.15,
+        "week_52_high": 164.49,
+        "week_52_low": 93.63,
+        "pct_above_52w_low": 71.8,
+        "pct_from_52w_high": 2.21,
+        "volume": 10981008,
+        "avg_volume_20d": 22209998
+      },
+      "score": 9
+    }
+  },
+  "IDFCFIRSTB": {
+    "last_alert": "2025-12-05T16:34:20.747587",
+    "alert_count": 1,
+    "details": {
+      "symbol": "IDFCFIRSTB",
+      "name": "IDFC First Bank Limited",
+      "passes_all": true,
+      "current_price": 80.87,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 80.87,
+        "sma_50": 77.01,
+        "sma_150": 72.76,
+        "sma_200": 69.43,
+        "week_52_high": 82.7,
+        "week_52_low": 52.29,
+        "pct_above_52w_low": 54.66,
+        "pct_from_52w_high": 2.21,
+        "volume": 16407496,
+        "avg_volume_20d": 23499449
+      },
+      "score": 9
+    }
+  },
+  "MARUTI": {
+    "last_alert": "2025-12-05T16:34:21.684428",
+    "alert_count": 1,
+    "details": {
+      "symbol": "MARUTI",
+      "name": "Maruti Suzuki India Limited",
+      "passes_all": true,
+      "current_price": 16282.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 16282.0,
+        "sma_50": 16014.28,
+        "sma_150": 14072.01,
+        "sma_200": 13491.89,
+        "week_52_high": 16660.0,
+        "week_52_low": 10610.16,
+        "pct_above_52w_low": 53.46,
+        "pct_from_52w_high": 2.27,
+        "volume": 332009,
+        "avg_volume_20d": 320442
+      },
+      "score": 9
+    }
+  },
+  "CUMMINSIND": {
+    "last_alert": "2025-12-05T16:34:22.789993",
+    "alert_count": 1,
+    "details": {
+      "symbol": "CUMMINSIND",
+      "name": "Cummins India Limited",
+      "passes_all": true,
+      "current_price": 4468.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 4468.9,
+        "sma_50": 4202.15,
+        "sma_150": 3716.97,
+        "sma_200": 3500.59,
+        "week_52_high": 4574.0,
+        "week_52_low": 2555.89,
+        "pct_above_52w_low": 74.85,
+        "pct_from_52w_high": 2.3,
+        "volume": 560756,
+        "avg_volume_20d": 627059
+      },
+      "score": 9
+    }
+  },
+  "LT": {
+    "last_alert": "2025-12-05T16:34:23.711033",
+    "alert_count": 1,
+    "details": {
+      "symbol": "LT",
+      "name": "Larsen & Toubro Limited",
+      "passes_all": true,
+      "current_price": 4038.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 4038.2,
+        "sma_50": 3904.99,
+        "sma_150": 3691.16,
+        "sma_200": 3580.16,
+        "week_52_high": 4140.0,
+        "week_52_low": 2937.9,
+        "pct_above_52w_low": 37.45,
+        "pct_from_52w_high": 2.46,
+        "volume": 1073405,
+        "avg_volume_20d": 1469549
+      },
+      "score": 9
+    }
+  },
+  "TORNTPHARM": {
+    "last_alert": "2025-12-05T16:34:24.655515",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TORNTPHARM",
+      "name": "Torrent Pharmaceuticals Limited",
+      "passes_all": true,
+      "current_price": 3785.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 3785.9,
+        "sma_50": 3642.11,
+        "sma_150": 3491.64,
+        "sma_200": 3405.64,
+        "week_52_high": 3882.2,
+        "week_52_low": 2880.98,
+        "pct_above_52w_low": 31.41,
+        "pct_from_52w_high": 2.48,
+        "volume": 197200,
+        "avg_volume_20d": 289387
+      },
+      "score": 9
+    }
+  },
+  "ADANIPORTS": {
+    "last_alert": "2025-12-05T16:34:25.701408",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ADANIPORTS",
+      "name": "Adani Ports and Special Economic Zone Limited",
+      "passes_all": true,
+      "current_price": 1509.4,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1509.4,
+        "sma_50": 1458.12,
+        "sma_150": 1413.29,
+        "sma_200": 1348.34,
+        "week_52_high": 1549.0,
+        "week_52_low": 1005.86,
+        "pct_above_52w_low": 50.06,
+        "pct_from_52w_high": 2.56,
+        "volume": 1141352,
+        "avg_volume_20d": 2134004
+      },
+      "score": 9
+    }
+  },
+  "RELIANCE": {
+    "last_alert": "2025-12-05T16:34:26.814331",
+    "alert_count": 1,
+    "details": {
+      "symbol": "RELIANCE",
+      "name": "Reliance Industries Limited",
+      "passes_all": true,
+      "current_price": 1540.6,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1540.6,
+        "sma_50": 1465.21,
+        "sma_150": 1436.82,
+        "sma_200": 1389.3,
+        "week_52_high": 1581.3,
+        "week_52_low": 1110.42,
+        "pct_above_52w_low": 38.74,
+        "pct_from_52w_high": 2.57,
+        "volume": 10182279,
+        "avg_volume_20d": 10126784
+      },
+      "score": 9
+    }
+  },
+  "PAYTM": {
+    "last_alert": "2025-12-05T16:34:27.840908",
+    "alert_count": 1,
+    "details": {
+      "symbol": "PAYTM",
+      "name": "One97 Communications Limited",
+      "passes_all": true,
+      "current_price": 1344.6,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1344.6,
+        "sma_50": 1270.89,
+        "sma_150": 1104.84,
+        "sma_200": 1023.2,
+        "week_52_high": 1381.8,
+        "week_52_low": 651.5,
+        "pct_above_52w_low": 106.39,
+        "pct_from_52w_high": 2.69,
+        "volume": 2002367,
+        "avg_volume_20d": 6575313
+      },
+      "score": 9
+    }
+  },
+  "SBIN": {
+    "last_alert": "2025-12-05T16:34:31.002449",
+    "alert_count": 1,
+    "details": {
+      "symbol": "SBIN",
+      "name": "State Bank of India",
+      "passes_all": true,
+      "current_price": 971.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 971.5,
+        "sma_50": 927.97,
+        "sma_150": 848.43,
+        "sma_200": 821.38,
+        "week_52_high": 999.0,
+        "week_52_low": 666.61,
+        "pct_above_52w_low": 45.74,
+        "pct_from_52w_high": 2.75,
+        "volume": 17342948,
+        "avg_volume_20d": 9868240
+      },
+      "score": 9
+    }
+  },
+  "CHOLAFIN": {
+    "last_alert": "2025-12-05T16:34:32.731224",
+    "alert_count": 1,
+    "details": {
+      "symbol": "CHOLAFIN",
+      "name": "Cholamandalam Investment and Finance Company Limited",
+      "passes_all": true,
+      "current_price": 1730.4,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1730.4,
+        "sma_50": 1679.01,
+        "sma_150": 1590.03,
+        "sma_200": 1559.96,
+        "week_52_high": 1782.0,
+        "week_52_low": 1166.38,
+        "pct_above_52w_low": 48.36,
+        "pct_from_52w_high": 2.9,
+        "volume": 1344980,
+        "avg_volume_20d": 1259077
+      },
+      "score": 9
+    }
+  },
+  "SBILIFE": {
+    "last_alert": "2025-12-05T16:34:34.581053",
+    "alert_count": 1,
+    "details": {
+      "symbol": "SBILIFE",
+      "name": "SBI Life Insurance Company Limited",
+      "passes_all": true,
+      "current_price": 2023.7,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 2023.7,
+        "sma_50": 1913.84,
+        "sma_150": 1844.86,
+        "sma_200": 1763.65,
+        "week_52_high": 2086.6,
+        "week_52_low": 1369.94,
+        "pct_above_52w_low": 47.72,
+        "pct_from_52w_high": 3.01,
+        "volume": 749475,
+        "avg_volume_20d": 894812
+      },
+      "score": 9
+    }
+  },
+  "BHARTIARTL": {
+    "last_alert": "2025-12-05T16:34:35.623124",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BHARTIARTL",
+      "name": "Bharti Airtel Limited",
+      "passes_all": true,
+      "current_price": 2108.8,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 2108.8,
+        "sma_50": 2037.45,
+        "sma_150": 1942.96,
+        "sma_200": 1882.53,
+        "week_52_high": 2174.5,
+        "week_52_low": 1546.57,
+        "pct_above_52w_low": 36.35,
+        "pct_from_52w_high": 3.02,
+        "volume": 2938272,
+        "avg_volume_20d": 12066994
+      },
+      "score": 9
+    }
+  },
+  "VEDL": {
+    "last_alert": "2025-12-05T16:34:36.823018",
+    "alert_count": 1,
+    "details": {
+      "symbol": "VEDL",
+      "name": "Vedanta Limited",
+      "passes_all": true,
+      "current_price": 524.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 524.5,
+        "sma_50": 497.0,
+        "sma_150": 451.21,
+        "sma_200": 439.61,
+        "week_52_high": 541.05,
+        "week_52_low": 344.65,
+        "pct_above_52w_low": 52.18,
+        "pct_from_52w_high": 3.06,
+        "volume": 14807509,
+        "avg_volume_20d": 8526949
+      },
+      "score": 9
+    }
+  },
+  "TATACONSUM": {
+    "last_alert": "2025-12-05T16:34:37.958014",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TATACONSUM",
+      "name": "Tata Consumer Products Limited",
+      "passes_all": true,
+      "current_price": 1162.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1162.9,
+        "sma_50": 1156.41,
+        "sma_150": 1116.75,
+        "sma_200": 1094.14,
+        "week_52_high": 1202.8,
+        "week_52_low": 876.4,
+        "pct_above_52w_low": 32.69,
+        "pct_from_52w_high": 3.32,
+        "volume": 699437,
+        "avg_volume_20d": 1534196
+      },
+      "score": 9
+    }
+  },
+  "INDUSTOWER": {
+    "last_alert": "2025-12-05T16:34:38.866960",
+    "alert_count": 1,
+    "details": {
+      "symbol": "INDUSTOWER",
+      "name": "Indus Towers Limited",
+      "passes_all": true,
+      "current_price": 415.7,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 415.7,
+        "sma_50": 377.93,
+        "sma_150": 377.62,
+        "sma_200": 371.93,
+        "week_52_high": 430.0,
+        "week_52_low": 312.55,
+        "pct_above_52w_low": 33.0,
+        "pct_from_52w_high": 3.33,
+        "volume": 9653231,
+        "avg_volume_20d": 5075042
+      },
+      "score": 9
+    }
+  },
+  "CANFINHOME": {
+    "last_alert": "2025-12-05T16:34:39.815069",
+    "alert_count": 1,
+    "details": {
+      "symbol": "CANFINHOME",
+      "name": "Can Fin Homes Limited",
+      "passes_all": true,
+      "current_price": 900.8,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 900.8,
+        "sma_50": 846.23,
+        "sma_150": 792.48,
+        "sma_200": 755.9,
+        "week_52_high": 932.0,
+        "week_52_low": 554.31,
+        "pct_above_52w_low": 62.51,
+        "pct_from_52w_high": 3.35,
+        "volume": 195012,
+        "avg_volume_20d": 319769
+      },
+      "score": 9
+    }
+  },
+  "PERSISTENT": {
+    "last_alert": "2025-12-05T16:34:41.935125",
+    "alert_count": 1,
+    "details": {
+      "symbol": "PERSISTENT",
+      "name": "Persistent Systems Limited",
+      "passes_all": true,
+      "current_price": 6520.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 6520.5,
+        "sma_50": 5809.08,
+        "sma_150": 5634.13,
+        "sma_200": 5532.38,
+        "week_52_high": 6748.29,
+        "week_52_low": 4137.79,
+        "pct_above_52w_low": 57.58,
+        "pct_from_52w_high": 3.38,
+        "volume": 203946,
+        "avg_volume_20d": 398758
+      },
+      "score": 9
+    }
+  },
+  "MFSL": {
+    "last_alert": "2025-12-05T16:34:42.885529",
+    "alert_count": 1,
+    "details": {
+      "symbol": "MFSL",
+      "name": "Max Financial Services Limited",
+      "passes_all": true,
+      "current_price": 1690.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1690.2,
+        "sma_50": 1614.28,
+        "sma_150": 1559.79,
+        "sma_200": 1450.75,
+        "week_52_high": 1751.4,
+        "week_52_low": 950.0,
+        "pct_above_52w_low": 77.92,
+        "pct_from_52w_high": 3.49,
+        "volume": 415984,
+        "avg_volume_20d": 770355
+      },
+      "score": 9
+    }
+  },
+  "NMDC": {
+    "last_alert": "2025-12-05T16:34:43.985838",
+    "alert_count": 1,
+    "details": {
+      "symbol": "NMDC",
+      "name": "NMDC Limited",
+      "passes_all": true,
+      "current_price": 76.46,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 76.46,
+        "sma_50": 75.52,
+        "sma_150": 71.99,
+        "sma_200": 69.95,
+        "week_52_high": 79.24,
+        "week_52_low": 56.91,
+        "pct_above_52w_low": 34.35,
+        "pct_from_52w_high": 3.51,
+        "volume": 17202110,
+        "avg_volume_20d": 20507168
+      },
+      "score": 9
+    }
+  },
+  "TITAN": {
+    "last_alert": "2025-12-05T16:34:45.015240",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TITAN",
+      "name": "Titan Company Limited",
+      "passes_all": true,
+      "current_price": 3813.3,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 3813.3,
+        "sma_50": 3704.08,
+        "sma_150": 3580.67,
+        "sma_200": 3475.35,
+        "week_52_high": 3956.0,
+        "week_52_low": 2916.22,
+        "pct_above_52w_low": 30.76,
+        "pct_from_52w_high": 3.61,
+        "volume": 508445,
+        "avg_volume_20d": 704399
+      },
+      "score": 9
+    }
+  },
+  "CANBK": {
+    "last_alert": "2025-12-05T16:34:45.966280",
+    "alert_count": 1,
+    "details": {
+      "symbol": "CANBK",
+      "name": "Canara Bank",
+      "passes_all": true,
+      "current_price": 148.64,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 148.64,
+        "sma_50": 136.32,
+        "sma_150": 118.28,
+        "sma_200": 110.24,
+        "week_52_high": 154.21,
+        "week_52_low": 75.88,
+        "pct_above_52w_low": 95.89,
+        "pct_from_52w_high": 3.61,
+        "volume": 23208819,
+        "avg_volume_20d": 28303064
+      },
+      "score": 9
+    }
+  },
+  "BHARATFORG": {
+    "last_alert": "2025-12-05T16:34:47.269803",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BHARATFORG",
+      "name": "Bharat Forge Limited",
+      "passes_all": true,
+      "current_price": 1406.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1406.0,
+        "sma_50": 1315.29,
+        "sma_150": 1252.31,
+        "sma_200": 1209.47,
+        "week_52_high": 1460.2,
+        "week_52_low": 914.85,
+        "pct_above_52w_low": 53.69,
+        "pct_from_52w_high": 3.71,
+        "volume": 483474,
+        "avg_volume_20d": 1370904
+      },
+      "score": 9
+    }
+  },
+  "BANKBARODA": {
+    "last_alert": "2025-12-05T16:34:48.901891",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BANKBARODA",
+      "name": "Bank of Baroda Limited",
+      "passes_all": true,
+      "current_price": 292.6,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 292.6,
+        "sma_50": 277.0,
+        "sma_150": 251.52,
+        "sma_200": 242.57,
+        "week_52_high": 303.95,
+        "week_52_low": 184.35,
+        "pct_above_52w_low": 58.72,
+        "pct_from_52w_high": 3.73,
+        "volume": 7375168,
+        "avg_volume_20d": 9042008
+      },
+      "score": 9
+    }
+  },
+  "BAJAJ-AUTO": {
+    "last_alert": "2025-12-05T16:34:49.822512",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BAJAJ-AUTO",
+      "name": "Bajaj Auto Limited",
+      "passes_all": true,
+      "current_price": 9109.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 9109.0,
+        "sma_50": 8930.16,
+        "sma_150": 8607.81,
+        "sma_200": 8394.45,
+        "week_52_high": 9490.0,
+        "week_52_low": 6914.12,
+        "pct_above_52w_low": 31.74,
+        "pct_from_52w_high": 4.01,
+        "volume": 279881,
+        "avg_volume_20d": 414964
+      },
+      "score": 9
+    }
+  },
+  "CUB": {
+    "last_alert": "2025-12-05T16:34:51.482487",
+    "alert_count": 1,
+    "details": {
+      "symbol": "CUB",
+      "name": "City Union Bank Limited",
+      "passes_all": true,
+      "current_price": 271.85,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 271.85,
+        "sma_50": 242.47,
+        "sma_150": 215.68,
+        "sma_200": 201.64,
+        "week_52_high": 284.0,
+        "week_52_low": 141.58,
+        "pct_above_52w_low": 92.01,
+        "pct_from_52w_high": 4.28,
+        "volume": 2290670,
+        "avg_volume_20d": 4032095
+      },
+      "score": 9
+    }
+  },
+  "UNIONBANK": {
+    "last_alert": "2025-12-05T16:34:52.594687",
+    "alert_count": 1,
+    "details": {
+      "symbol": "UNIONBANK",
+      "name": "Union Bank of India",
+      "passes_all": true,
+      "current_price": 153.3,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 153.3,
+        "sma_50": 146.23,
+        "sma_150": 139.48,
+        "sma_200": 133.58,
+        "week_52_high": 160.15,
+        "week_52_low": 97.51,
+        "pct_above_52w_low": 57.21,
+        "pct_from_52w_high": 4.28,
+        "volume": 11066315,
+        "avg_volume_20d": 12624729
+      },
+      "score": 9
+    }
+  },
+  "BAJAJFINSV": {
+    "last_alert": "2025-12-05T16:34:53.919498",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BAJAJFINSV",
+      "name": "Bajaj Finserv Ltd.",
+      "passes_all": true,
+      "current_price": 2096.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 2096.5,
+        "sma_50": 2069.17,
+        "sma_150": 2024.78,
+        "sma_200": 1997.64,
+        "week_52_high": 2195.0,
+        "week_52_low": 1550.89,
+        "pct_above_52w_low": 35.18,
+        "pct_from_52w_high": 4.49,
+        "volume": 1742093,
+        "avg_volume_20d": 1289499
+      },
+      "score": 9
+    }
+  },
+  "HINDALCO": {
+    "last_alert": "2025-12-05T16:34:55.044821",
+    "alert_count": 1,
+    "details": {
+      "symbol": "HINDALCO",
+      "name": "Hindalco Industries Limited",
+      "passes_all": true,
+      "current_price": 823.25,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 823.25,
+        "sma_50": 794.65,
+        "sma_150": 717.78,
+        "sma_200": 698.16,
+        "week_52_high": 864.0,
+        "week_52_low": 542.47,
+        "pct_above_52w_low": 51.76,
+        "pct_from_52w_high": 4.72,
+        "volume": 4272899,
+        "avg_volume_20d": 5253474
+      },
+      "score": 9
+    }
+  },
+  "PNB": {
+    "last_alert": "2025-12-05T16:34:55.970247",
+    "alert_count": 1,
+    "details": {
+      "symbol": "PNB",
+      "name": "Punjab National Bank",
+      "passes_all": true,
+      "current_price": 121.71,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 121.71,
+        "sma_50": 119.16,
+        "sma_150": 109.77,
+        "sma_200": 105.3,
+        "week_52_high": 127.8,
+        "week_52_low": 83.05,
+        "pct_above_52w_low": 46.55,
+        "pct_from_52w_high": 4.77,
+        "volume": 22665444,
+        "avg_volume_20d": 15843482
+      },
+      "score": 9
+    }
+  },
+  "BAJFINANCE": {
+    "last_alert": "2025-12-05T16:34:56.989603",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BAJFINANCE",
+      "name": "Bajaj Finance Limited",
+      "passes_all": true,
+      "current_price": 1048.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1048.0,
+        "sma_50": 1033.19,
+        "sma_150": 957.61,
+        "sma_200": 935.09,
+        "week_52_high": 1102.5,
+        "week_52_low": 664.45,
+        "pct_above_52w_low": 57.72,
+        "pct_from_52w_high": 4.94,
+        "volume": 13122765,
+        "avg_volume_20d": 8143822
+      },
+      "score": 9
+    }
+  },
+  "M&MFIN": {
+    "last_alert": "2025-12-05T16:34:58.430513",
+    "alert_count": 1,
+    "details": {
+      "symbol": "M&MFIN",
+      "name": "Mahindra & Mahindra Financial Services Limited",
+      "passes_all": true,
+      "current_price": 367.55,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 367.55,
+        "sma_50": 312.03,
+        "sma_150": 277.77,
+        "sma_200": 274.97,
+        "week_52_high": 387.0,
+        "week_52_low": 230.52,
+        "pct_above_52w_low": 59.44,
+        "pct_from_52w_high": 5.03,
+        "volume": 15440717,
+        "avg_volume_20d": 5144538
+      },
+      "score": 9
+    }
+  },
+  "JSWSTEEL": {
+    "last_alert": "2025-12-05T16:34:59.488832",
+    "alert_count": 1,
+    "details": {
+      "symbol": "JSWSTEEL",
+      "name": "JSW Steel Limited",
+      "passes_all": true,
+      "current_price": 1162.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1162.2,
+        "sma_50": 1161.86,
+        "sma_150": 1076.23,
+        "sma_200": 1058.69,
+        "week_52_high": 1223.9,
+        "week_52_low": 877.64,
+        "pct_above_52w_low": 32.42,
+        "pct_from_52w_high": 5.04,
+        "volume": 2326394,
+        "avg_volume_20d": 1785594
+      },
+      "score": 9
+    }
+  },
+  "BPCL": {
+    "last_alert": "2025-12-05T16:35:00.473080",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BPCL",
+      "name": "Bharat Petroleum Corporation Limited",
+      "passes_all": true,
+      "current_price": 360.3,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 360.3,
+        "sma_50": 348.65,
+        "sma_150": 325.27,
+        "sma_200": 310.54,
+        "week_52_high": 381.55,
+        "week_52_low": 225.84,
+        "pct_above_52w_low": 59.54,
+        "pct_from_52w_high": 5.57,
+        "volume": 3478454,
+        "avg_volume_20d": 7357964
+      },
+      "score": 9
+    }
+  },
+  "LTIM": {
+    "last_alert": "2025-12-05T16:35:01.393530",
+    "alert_count": 1,
+    "details": {
+      "symbol": "LTIM",
+      "name": "LTIMindtree Limited",
+      "passes_all": true,
+      "current_price": 6292.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 6292.0,
+        "sma_50": 5639.48,
+        "sma_150": 5313.81,
+        "sma_200": 5132.01,
+        "week_52_high": 6681.05,
+        "week_52_low": 3753.18,
+        "pct_above_52w_low": 67.64,
+        "pct_from_52w_high": 5.82,
+        "volume": 319517,
+        "avg_volume_20d": 299206
+      },
+      "score": 9
+    }
+  },
+  "BRITANNIA": {
+    "last_alert": "2025-12-05T16:35:03.065270",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BRITANNIA",
+      "name": "Britannia Industries Limited",
+      "passes_all": true,
+      "current_price": 5961.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 5961.0,
+        "sma_50": 5914.07,
+        "sma_150": 5733.32,
+        "sma_200": 5531.93,
+        "week_52_high": 6336.0,
+        "week_52_low": 4447.71,
+        "pct_above_52w_low": 34.02,
+        "pct_from_52w_high": 5.92,
+        "volume": 244396,
+        "avg_volume_20d": 453682
+      },
+      "score": 9
+    }
+  },
+  "BHEL": {
+    "last_alert": "2025-12-05T16:35:04.668504",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BHEL",
+      "name": "Bharat Heavy Electricals Limited",
+      "passes_all": true,
+      "current_price": 277.75,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 277.75,
+        "sma_50": 258.93,
+        "sma_150": 246.96,
+        "sma_200": 237.0,
+        "week_52_high": 295.25,
+        "week_52_low": 175.63,
+        "pct_above_52w_low": 58.14,
+        "pct_from_52w_high": 5.93,
+        "volume": 4629028,
+        "avg_volume_20d": 11485059
+      },
+      "score": 9
+    }
+  },
+  "IOC": {
+    "last_alert": "2025-12-05T16:35:06.209152",
+    "alert_count": 1,
+    "details": {
+      "symbol": "IOC",
+      "name": "Indian Oil Corporation Limited",
+      "passes_all": true,
+      "current_price": 163.66,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 163.66,
+        "sma_50": 160.6,
+        "sma_150": 148.26,
+        "sma_200": 142.59,
+        "week_52_high": 174.5,
+        "week_52_low": 108.38,
+        "pct_above_52w_low": 51.01,
+        "pct_from_52w_high": 6.21,
+        "volume": 6113650,
+        "avg_volume_20d": 11036190
+      },
+      "score": 9
+    }
+  },
+  "NAVINFLUOR": {
+    "last_alert": "2025-12-05T16:35:07.543588",
+    "alert_count": 1,
+    "details": {
+      "symbol": "NAVINFLUOR",
+      "name": "Navin Fluorine International Limited",
+      "passes_all": true,
+      "current_price": 5772.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 5772.0,
+        "sma_50": 5368.98,
+        "sma_150": 4943.72,
+        "sma_200": 4738.71,
+        "week_52_high": 6168.5,
+        "week_52_low": 3172.04,
+        "pct_above_52w_low": 81.96,
+        "pct_from_52w_high": 6.43,
+        "volume": 72734,
+        "avg_volume_20d": 137563
+      },
+      "score": 9
+    }
+  },
+  "MPHASIS": {
+    "last_alert": "2025-12-05T16:35:09.000328",
+    "alert_count": 1,
+    "details": {
+      "symbol": "MPHASIS",
+      "name": "Mphasis Limited",
+      "passes_all": true,
+      "current_price": 2953.6,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 2953.6,
+        "sma_50": 2775.5,
+        "sma_150": 2726.95,
+        "sma_200": 2629.79,
+        "week_52_high": 3174.52,
+        "week_52_low": 2004.5,
+        "pct_above_52w_low": 47.35,
+        "pct_from_52w_high": 6.96,
+        "volume": 810602,
+        "avg_volume_20d": 902193
+      },
+      "score": 9
+    }
+  },
+  "YESBANK": {
+    "last_alert": "2025-12-05T16:35:10.011413",
+    "alert_count": 1,
+    "details": {
+      "symbol": "YESBANK",
+      "name": "Yes Bank Limited",
+      "passes_all": true,
+      "current_price": 22.6,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 22.6,
+        "sma_50": 22.55,
+        "sma_150": 20.9,
+        "sma_200": 20.02,
+        "week_52_high": 24.3,
+        "week_52_low": 16.02,
+        "pct_above_52w_low": 41.07,
+        "pct_from_52w_high": 7.0,
+        "volume": 81325091,
+        "avg_volume_20d": 82358074
+      },
+      "score": 9
+    }
+  },
+  "BIOCON": {
+    "last_alert": "2025-12-05T16:35:11.761031",
+    "alert_count": 1,
+    "details": {
+      "symbol": "BIOCON",
+      "name": "Biocon Limited",
+      "passes_all": true,
+      "current_price": 392.65,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 392.65,
+        "sma_50": 376.34,
+        "sma_150": 364.36,
+        "sma_200": 355.57,
+        "week_52_high": 424.95,
+        "week_52_low": 290.61,
+        "pct_above_52w_low": 35.11,
+        "pct_from_52w_high": 7.6,
+        "volume": 4216726,
+        "avg_volume_20d": 5207725
+      },
+      "score": 9
+    }
+  },
+  "DIVISLAB": {
+    "last_alert": "2025-12-05T16:35:13.493076",
+    "alert_count": 1,
+    "details": {
+      "symbol": "DIVISLAB",
+      "name": "Divi's Laboratories Limited",
+      "passes_all": true,
+      "current_price": 6473.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 6473.5,
+        "sma_50": 6407.88,
+        "sma_150": 6402.38,
+        "sma_200": 6232.12,
+        "week_52_high": 7039.45,
+        "week_52_low": 4932.54,
+        "pct_above_52w_low": 31.24,
+        "pct_from_52w_high": 8.04,
+        "volume": 148896,
+        "avg_volume_20d": 259461
+      },
+      "score": 9
+    }
+  },
+  "TATACOMM": {
+    "last_alert": "2025-12-05T16:35:14.519762",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TATACOMM",
+      "name": "Tata Communications Limited",
+      "passes_all": true,
+      "current_price": 1837.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1837.9,
+        "sma_50": 1822.84,
+        "sma_150": 1712.14,
+        "sma_200": 1658.87,
+        "week_52_high": 2004.0,
+        "week_52_low": 1272.01,
+        "pct_above_52w_low": 44.49,
+        "pct_from_52w_high": 8.29,
+        "volume": 179118,
+        "avg_volume_20d": 263956
+      },
+      "score": 9
+    }
+  },
+  "IDBI": {
+    "last_alert": "2025-12-05T16:35:15.532056",
+    "alert_count": 1,
+    "details": {
+      "symbol": "IDBI",
+      "name": "IDBI Bank Limited",
+      "passes_all": true,
+      "current_price": 97.4,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 97.4,
+        "sma_50": 96.91,
+        "sma_150": 93.72,
+        "sma_200": 88.97,
+        "week_52_high": 106.97,
+        "week_52_low": 64.51,
+        "pct_above_52w_low": 50.98,
+        "pct_from_52w_high": 8.95,
+        "volume": 6004547,
+        "avg_volume_20d": 11691007
+      },
+      "score": 9
+    }
+  },
+  "CESC": {
+    "last_alert": "2025-12-05T16:35:16.857938",
+    "alert_count": 1,
+    "details": {
+      "symbol": "CESC",
+      "name": "CESC Limited",
+      "passes_all": true,
+      "current_price": 174.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 174.0,
+        "sma_50": 170.42,
+        "sma_150": 164.94,
+        "sma_200": 159.02,
+        "week_52_high": 191.42,
+        "week_52_low": 115.13,
+        "pct_above_52w_low": 51.13,
+        "pct_from_52w_high": 9.1,
+        "volume": 768311,
+        "avg_volume_20d": 1344923
+      },
+      "score": 9
+    }
+  },
+  "DCBBANK": {
+    "last_alert": "2025-12-05T16:35:19.254964",
+    "alert_count": 1,
+    "details": {
+      "symbol": "DCBBANK",
+      "name": "DCB Bank Limited",
+      "passes_all": true,
+      "current_price": 173.12,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 173.12,
+        "sma_50": 156.68,
+        "sma_150": 142.77,
+        "sma_200": 135.5,
+        "week_52_high": 190.5,
+        "week_52_low": 100.46,
+        "pct_above_52w_low": 72.33,
+        "pct_from_52w_high": 9.12,
+        "volume": 1024851,
+        "avg_volume_20d": 3537546
+      },
+      "score": 9
+    }
+  },
+  "PRESTIGE": {
+    "last_alert": "2025-12-05T16:35:23.008269",
+    "alert_count": 1,
+    "details": {
+      "symbol": "PRESTIGE",
+      "name": "Prestige Estates Projects Limited",
+      "passes_all": true,
+      "current_price": 1689.7,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1689.7,
+        "sma_50": 1670.31,
+        "sma_150": 1619.17,
+        "sma_200": 1513.89,
+        "week_52_high": 1897.82,
+        "week_52_low": 1046.85,
+        "pct_above_52w_low": 61.41,
+        "pct_from_52w_high": 10.97,
+        "volume": 428623,
+        "avg_volume_20d": 569382
+      },
+      "score": 9
+    }
+  },
+  "ESCORTS": {
+    "last_alert": "2025-12-05T16:35:24.944353",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ESCORTS",
+      "name": "Escorts Kubota Limited",
+      "passes_all": true,
+      "current_price": 3710.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 3710.9,
+        "sma_50": 3661.9,
+        "sma_150": 3502.91,
+        "sma_200": 3405.12,
+        "week_52_high": 4180.0,
+        "week_52_low": 2761.55,
+        "pct_above_52w_low": 34.38,
+        "pct_from_52w_high": 11.22,
+        "volume": 40110,
+        "avg_volume_20d": 98057
+      },
+      "score": 9
+    }
+  },
+  "KEI": {
+    "last_alert": "2025-12-05T16:35:26.069139",
+    "alert_count": 1,
+    "details": {
+      "symbol": "KEI",
+      "name": "KEI Industries Limited",
+      "passes_all": true,
+      "current_price": 4163.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 4163.5,
+        "sma_50": 4118.8,
+        "sma_150": 3890.91,
+        "sma_200": 3683.24,
+        "week_52_high": 4701.57,
+        "week_52_low": 2424.0,
+        "pct_above_52w_low": 71.76,
+        "pct_from_52w_high": 11.44,
+        "volume": 124291,
+        "avg_volume_20d": 141292
+      },
+      "score": 9
+    }
+  },
+  "GLENMARK": {
+    "last_alert": "2025-12-05T16:35:27.012663",
+    "alert_count": 1,
+    "details": {
+      "symbol": "GLENMARK",
+      "name": "Glenmark Pharmaceuticals Limited",
+      "passes_all": true,
+      "current_price": 1968.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1968.2,
+        "sma_50": 1895.72,
+        "sma_150": 1848.17,
+        "sma_200": 1736.89,
+        "week_52_high": 2279.21,
+        "week_52_low": 1272.38,
+        "pct_above_52w_low": 54.69,
+        "pct_from_52w_high": 13.65,
+        "volume": 420803,
+        "avg_volume_20d": 1315168
+      },
+      "score": 9
+    }
+  },
+  "NUVAMA": {
+    "last_alert": "2025-12-05T16:35:28.234331",
+    "alert_count": 1,
+    "details": {
+      "symbol": "NUVAMA",
+      "name": "Nuvama Wealth Management Limited",
+      "passes_all": true,
+      "current_price": 7172.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 7172.5,
+        "sma_50": 7060.37,
+        "sma_150": 6959.6,
+        "sma_200": 6616.73,
+        "week_52_high": 8428.75,
+        "week_52_low": 4646.91,
+        "pct_above_52w_low": 54.35,
+        "pct_from_52w_high": 14.9,
+        "volume": 66557,
+        "avg_volume_20d": 104231
+      },
+      "score": 9
+    }
+  },
+  "INTELLECT": {
+    "last_alert": "2025-12-05T16:35:29.264912",
+    "alert_count": 1,
+    "details": {
+      "symbol": "INTELLECT",
+      "name": "Intellect Design Arena Limited",
+      "passes_all": true,
+      "current_price": 1056.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1056.1,
+        "sma_50": 1054.19,
+        "sma_150": 1053.63,
+        "sma_200": 965.54,
+        "week_52_high": 1247.67,
+        "week_52_low": 574.03,
+        "pct_above_52w_low": 83.98,
+        "pct_from_52w_high": 15.35,
+        "volume": 259915,
+        "avg_volume_20d": 594442
+      },
+      "score": 9
+    }
+  },
+  "MCX": {
+    "last_alert": "2025-12-05T17:12:32.746455",
+    "alert_count": 1,
+    "details": {
+      "symbol": "MCX",
+      "name": "Multi Commodity Exchange of India Limited",
+      "passes_all": true,
+      "current_price": 10343.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 10343.0,
+        "sma_50": 9231.83,
+        "sma_150": 8158.44,
+        "sma_200": 7456.58,
+        "week_52_high": 10471.5,
+        "week_52_low": 4391.38,
+        "pct_above_52w_low": 135.53,
+        "pct_from_52w_high": 1.23,
+        "volume": 396471,
+        "avg_volume_20d": 540584
+      },
+      "score": 9
+    }
+  },
+  "INDIGRID": {
+    "last_alert": "2025-12-05T17:12:35.049647",
+    "alert_count": 1,
+    "details": {
+      "symbol": "INDIGRID",
+      "name": "Indigrid Infrastructure Trust",
+      "passes_all": true,
+      "current_price": 167.75,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 167.75,
+        "sma_50": 166.56,
+        "sma_150": 154.85,
+        "sma_200": 149.12,
+        "week_52_high": 169.94,
+        "week_52_low": 124.53,
+        "pct_above_52w_low": 34.71,
+        "pct_from_52w_high": 1.29,
+        "volume": 597199,
+        "avg_volume_20d": 674632
+      },
+      "score": 9
+    }
+  },
+  "JKTYRE": {
+    "last_alert": "2025-12-05T17:12:36.750008",
+    "alert_count": 1,
+    "details": {
+      "symbol": "JKTYRE",
+      "name": "JK Tyre & Industries Limited",
+      "passes_all": true,
+      "current_price": 464.3,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 464.3,
+        "sma_50": 421.07,
+        "sma_150": 374.32,
+        "sma_200": 351.64,
+        "week_52_high": 476.0,
+        "week_52_low": 240.87,
+        "pct_above_52w_low": 92.76,
+        "pct_from_52w_high": 2.46,
+        "volume": 845155,
+        "avg_volume_20d": 972129
+      },
+      "score": 9
+    }
+  },
+  "JAMNAAUTO": {
+    "last_alert": "2025-12-05T17:12:38.344598",
+    "alert_count": 1,
+    "details": {
+      "symbol": "JAMNAAUTO",
+      "name": "Jamna Auto Industries Limited",
+      "passes_all": true,
+      "current_price": 122.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 122.1,
+        "sma_50": 101.04,
+        "sma_150": 95.66,
+        "sma_200": 90.54,
+        "week_52_high": 125.3,
+        "week_52_low": 67.26,
+        "pct_above_52w_low": 81.53,
+        "pct_from_52w_high": 2.55,
+        "volume": 1929598,
+        "avg_volume_20d": 3219047
+      },
+      "score": 9
+    }
+  },
+  "ECLERX": {
+    "last_alert": "2025-12-05T17:12:40.066582",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ECLERX",
+      "name": "eClerx Services Limited",
+      "passes_all": true,
+      "current_price": 4832.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 4832.2,
+        "sma_50": 4388.65,
+        "sma_150": 3925.63,
+        "sma_200": 3622.17,
+        "week_52_high": 4959.0,
+        "week_52_low": 2167.46,
+        "pct_above_52w_low": 122.94,
+        "pct_from_52w_high": 2.56,
+        "volume": 44951,
+        "avg_volume_20d": 103868
+      },
+      "score": 9
+    }
+  },
+  "GPPL": {
+    "last_alert": "2025-12-05T17:12:41.791646",
+    "alert_count": 1,
+    "details": {
+      "symbol": "GPPL",
+      "name": "Gujarat Pipavav Port Limited",
+      "passes_all": true,
+      "current_price": 182.29,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 182.29,
+        "sma_50": 164.75,
+        "sma_150": 152.75,
+        "sma_200": 146.88,
+        "week_52_high": 187.88,
+        "week_52_low": 115.62,
+        "pct_above_52w_low": 57.66,
+        "pct_from_52w_high": 2.98,
+        "volume": 2342399,
+        "avg_volume_20d": 3660072
+      },
+      "score": 9
+    }
+  },
+  "INDIACEM": {
+    "last_alert": "2025-12-05T17:12:43.445265",
+    "alert_count": 1,
+    "details": {
+      "symbol": "INDIACEM",
+      "name": "The India Cements Limited",
+      "passes_all": true,
+      "current_price": 416.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 416.2,
+        "sma_50": 392.88,
+        "sma_150": 365.9,
+        "sma_200": 344.08,
+        "week_52_high": 430.45,
+        "week_52_low": 238.85,
+        "pct_above_52w_low": 74.25,
+        "pct_from_52w_high": 3.31,
+        "volume": 2334823,
+        "avg_volume_20d": 548288
+      },
+      "score": 9
+    }
+  },
+  "CRAFTSMAN": {
+    "last_alert": "2025-12-05T17:12:45.136397",
+    "alert_count": 1,
+    "details": {
+      "symbol": "CRAFTSMAN",
+      "name": "Craftsman Automation Limited",
+      "passes_all": true,
+      "current_price": 7102.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 7102.5,
+        "sma_50": 6765.57,
+        "sma_150": 6287.66,
+        "sma_200": 5863.94,
+        "week_52_high": 7378.5,
+        "week_52_low": 3696.88,
+        "pct_above_52w_low": 92.12,
+        "pct_from_52w_high": 3.74,
+        "volume": 35753,
+        "avg_volume_20d": 80550
+      },
+      "score": 9
+    }
+  },
+  "TVSSRICHAK": {
+    "last_alert": "2025-12-05T17:12:46.738535",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TVSSRICHAK",
+      "name": "TVS Srichakra Limited",
+      "passes_all": true,
+      "current_price": 4591.6,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 4591.6,
+        "sma_50": 4150.25,
+        "sma_150": 3378.72,
+        "sma_200": 3210.25,
+        "week_52_high": 4775.8,
+        "week_52_low": 2417.83,
+        "pct_above_52w_low": 89.91,
+        "pct_from_52w_high": 3.86,
+        "volume": 5239,
+        "avg_volume_20d": 14991
+      },
+      "score": 9
+    }
+  },
+  "IIFL": {
+    "last_alert": "2025-12-05T17:12:48.457193",
+    "alert_count": 1,
+    "details": {
+      "symbol": "IIFL",
+      "name": "IIFL Finance Limited",
+      "passes_all": true,
+      "current_price": 569.35,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 569.35,
+        "sma_50": 517.29,
+        "sma_150": 476.34,
+        "sma_200": 439.56,
+        "week_52_high": 592.8,
+        "week_52_low": 279.8,
+        "pct_above_52w_low": 103.48,
+        "pct_from_52w_high": 3.96,
+        "volume": 746291,
+        "avg_volume_20d": 1475824
+      },
+      "score": 9
+    }
+  },
+  "KARURVYSYA": {
+    "last_alert": "2025-12-05T17:12:50.229018",
+    "alert_count": 1,
+    "details": {
+      "symbol": "KARURVYSYA",
+      "name": "The Karur Vysya Bank Limited",
+      "passes_all": true,
+      "current_price": 248.15,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 248.15,
+        "sma_50": 238.91,
+        "sma_150": 217.5,
+        "sma_200": 206.48,
+        "week_52_high": 258.5,
+        "week_52_low": 153.09,
+        "pct_above_52w_low": 62.09,
+        "pct_from_52w_high": 4.0,
+        "volume": 2421896,
+        "avg_volume_20d": 1645161
+      },
+      "score": 9
+    }
+  },
+  "TMB": {
+    "last_alert": "2025-12-05T17:12:51.930142",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TMB",
+      "name": "Tamilnad Mercantile Bank Limited",
+      "passes_all": true,
+      "current_price": 534.25,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 534.25,
+        "sma_50": 473.75,
+        "sma_150": 448.05,
+        "sma_200": 439.2,
+        "week_52_high": 557.0,
+        "week_52_low": 391.32,
+        "pct_above_52w_low": 36.53,
+        "pct_from_52w_high": 4.08,
+        "volume": 142924,
+        "avg_volume_20d": 291632
+      },
+      "score": 9
+    }
+  },
+  "ASAHIINDIA": {
+    "last_alert": "2025-12-05T17:12:53.591202",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ASAHIINDIA",
+      "name": "Asahi India Glass Limited",
+      "passes_all": true,
+      "current_price": 1027.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1027.1,
+        "sma_50": 948.07,
+        "sma_150": 848.67,
+        "sma_200": 797.11,
+        "week_52_high": 1074.0,
+        "week_52_low": 575.43,
+        "pct_above_52w_low": 78.49,
+        "pct_from_52w_high": 4.37,
+        "volume": 97560,
+        "avg_volume_20d": 382245
+      },
+      "score": 9
+    }
+  },
+  "SOUTHBANK": {
+    "last_alert": "2025-12-05T17:12:55.260395",
+    "alert_count": 1,
+    "details": {
+      "symbol": "SOUTHBANK",
+      "name": "The South Indian Bank Limited",
+      "passes_all": true,
+      "current_price": 39.71,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 39.71,
+        "sma_50": 35.98,
+        "sma_150": 31.28,
+        "sma_200": 29.45,
+        "week_52_high": 41.65,
+        "week_52_low": 22.0,
+        "pct_above_52w_low": 80.5,
+        "pct_from_52w_high": 4.66,
+        "volume": 25270126,
+        "avg_volume_20d": 44429182
+      },
+      "score": 9
+    }
+  },
+  "UJJIVANSFB": {
+    "last_alert": "2025-12-05T17:12:57.339779",
+    "alert_count": 1,
+    "details": {
+      "symbol": "UJJIVANSFB",
+      "name": "Ujjivan Small Finance Bank Limited",
+      "passes_all": true,
+      "current_price": 53.4,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 53.4,
+        "sma_50": 51.1,
+        "sma_150": 47.38,
+        "sma_200": 44.65,
+        "week_52_high": 56.3,
+        "week_52_low": 30.88,
+        "pct_above_52w_low": 72.93,
+        "pct_from_52w_high": 5.15,
+        "volume": 9377356,
+        "avg_volume_20d": 10491297
+      },
+      "score": 9
+    }
+  },
+  "KIRLOSENG": {
+    "last_alert": "2025-12-05T17:12:59.427949",
+    "alert_count": 1,
+    "details": {
+      "symbol": "KIRLOSENG",
+      "name": "Kirloskar Oil Engines Limited",
+      "passes_all": true,
+      "current_price": 1130.8,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1130.8,
+        "sma_50": 998.88,
+        "sma_150": 917.75,
+        "sma_200": 859.47,
+        "week_52_high": 1194.95,
+        "week_52_low": 542.03,
+        "pct_above_52w_low": 108.62,
+        "pct_from_52w_high": 5.37,
+        "volume": 473762,
+        "avg_volume_20d": 1015618
+      },
+      "score": 9
+    }
+  },
+  "JBCHEPHARM": {
+    "last_alert": "2025-12-05T17:13:01.106232",
+    "alert_count": 1,
+    "details": {
+      "symbol": "JBCHEPHARM",
+      "name": "J. B. Chemicals & Pharmaceuticals Limited",
+      "passes_all": true,
+      "current_price": 1825.4,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1825.4,
+        "sma_50": 1723.89,
+        "sma_150": 1698.41,
+        "sma_200": 1672.71,
+        "week_52_high": 1934.79,
+        "week_52_low": 1380.37,
+        "pct_above_52w_low": 32.24,
+        "pct_from_52w_high": 5.65,
+        "volume": 124871,
+        "avg_volume_20d": 203541
+      },
+      "score": 9
+    }
+  },
+  "IMFA": {
+    "last_alert": "2025-12-05T17:13:03.247875",
+    "alert_count": 1,
+    "details": {
+      "symbol": "IMFA",
+      "name": "Indian Metals and Ferro Alloys Limited",
+      "passes_all": true,
+      "current_price": 1322.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1322.1,
+        "sma_50": 1216.0,
+        "sma_150": 917.21,
+        "sma_200": 842.72,
+        "week_52_high": 1415.0,
+        "week_52_low": 544.14,
+        "pct_above_52w_low": 142.97,
+        "pct_from_52w_high": 6.57,
+        "volume": 301160,
+        "avg_volume_20d": 389628
+      },
+      "score": 9
+    }
+  },
+  "ADANIENSOL": {
+    "last_alert": "2025-12-05T17:13:05.023326",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ADANIENSOL",
+      "name": "Adani Energy Solutions Limited",
+      "passes_all": true,
+      "current_price": 978.85,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 978.85,
+        "sma_50": 956.45,
+        "sma_150": 883.74,
+        "sma_200": 863.62,
+        "week_52_high": 1050.0,
+        "week_52_low": 639.45,
+        "pct_above_52w_low": 53.08,
+        "pct_from_52w_high": 6.78,
+        "volume": 545155,
+        "avg_volume_20d": 1112870
+      },
+      "score": 9
+    }
+  },
+  "GESHIP": {
+    "last_alert": "2025-12-05T17:13:07.323713",
+    "alert_count": 1,
+    "details": {
+      "symbol": "GESHIP",
+      "name": "The Great Eastern Shipping Company Limited",
+      "passes_all": true,
+      "current_price": 1091.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1091.0,
+        "sma_50": 1064.65,
+        "sma_150": 993.06,
+        "sma_200": 964.29,
+        "week_52_high": 1171.68,
+        "week_52_low": 781.77,
+        "pct_above_52w_low": 39.56,
+        "pct_from_52w_high": 6.89,
+        "volume": 139796,
+        "avg_volume_20d": 381366
+      },
+      "score": 9
+    }
+  },
+  "HINDZINC": {
+    "last_alert": "2025-12-05T17:13:09.602751",
+    "alert_count": 1,
+    "details": {
+      "symbol": "HINDZINC",
+      "name": "Hindustan Zinc Limited",
+      "passes_all": true,
+      "current_price": 498.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 498.1,
+        "sma_50": 483.9,
+        "sma_150": 456.41,
+        "sma_200": 447.99,
+        "week_52_high": 536.14,
+        "week_52_low": 370.78,
+        "pct_above_52w_low": 34.34,
+        "pct_from_52w_high": 7.1,
+        "volume": 3024740,
+        "avg_volume_20d": 4555455
+      },
+      "score": 9
+    }
+  },
+  "3MINDIA": {
+    "last_alert": "2025-12-05T17:13:11.350684",
+    "alert_count": 1,
+    "details": {
+      "symbol": "3MINDIA",
+      "name": "3M India Limited",
+      "passes_all": true,
+      "current_price": 34125.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 34125.0,
+        "sma_50": 32243.3,
+        "sma_150": 30541.86,
+        "sma_200": 29844.47,
+        "week_52_high": 37000.0,
+        "week_52_low": 25283.83,
+        "pct_above_52w_low": 34.97,
+        "pct_from_52w_high": 7.77,
+        "volume": 1838,
+        "avg_volume_20d": 7507
+      },
+      "score": 9
+    }
+  },
+  "UNOMINDA": {
+    "last_alert": "2025-12-05T17:13:13.305399",
+    "alert_count": 1,
+    "details": {
+      "symbol": "UNOMINDA",
+      "name": "Uno Minda Limited",
+      "passes_all": true,
+      "current_price": 1272.4,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1272.4,
+        "sma_50": 1270.58,
+        "sma_150": 1165.11,
+        "sma_200": 1094.08,
+        "week_52_high": 1382.0,
+        "week_52_low": 766.46,
+        "pct_above_52w_low": 66.01,
+        "pct_from_52w_high": 7.93,
+        "volume": 1017949,
+        "avg_volume_20d": 894824
+      },
+      "score": 9
+    }
+  },
+  "VARROC": {
+    "last_alert": "2025-12-05T17:13:15.270189",
+    "alert_count": 1,
+    "details": {
+      "symbol": "VARROC",
+      "name": "Varroc Engineering Limited",
+      "passes_all": true,
+      "current_price": 638.1,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 638.1,
+        "sma_50": 629.37,
+        "sma_150": 573.85,
+        "sma_200": 539.42,
+        "week_52_high": 694.7,
+        "week_52_low": 373.42,
+        "pct_above_52w_low": 70.88,
+        "pct_from_52w_high": 8.15,
+        "volume": 247373,
+        "avg_volume_20d": 481849
+      },
+      "score": 9
+    }
+  },
+  "APLAPOLLO": {
+    "last_alert": "2025-12-05T17:13:17.001800",
+    "alert_count": 1,
+    "details": {
+      "symbol": "APLAPOLLO",
+      "name": "APL Apollo Tubes Limited",
+      "passes_all": true,
+      "current_price": 1771.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1771.0,
+        "sma_50": 1746.62,
+        "sma_150": 1720.61,
+        "sma_200": 1662.47,
+        "week_52_high": 1929.27,
+        "week_52_low": 1268.27,
+        "pct_above_52w_low": 39.64,
+        "pct_from_52w_high": 8.2,
+        "volume": 268661,
+        "avg_volume_20d": 427377
+      },
+      "score": 9
+    }
+  },
+  "ESABINDIA": {
+    "last_alert": "2025-12-05T17:13:18.724413",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ESABINDIA",
+      "name": "ESAB India Limited",
+      "passes_all": true,
+      "current_price": 5744.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 5744.0,
+        "sma_50": 5143.22,
+        "sma_150": 5128.26,
+        "sma_200": 4982.51,
+        "week_52_high": 6307.19,
+        "week_52_low": 4080.45,
+        "pct_above_52w_low": 40.77,
+        "pct_from_52w_high": 8.93,
+        "volume": 3587,
+        "avg_volume_20d": 24384
+      },
+      "score": 9
+    }
+  },
+  "LEMONTREE": {
+    "last_alert": "2025-12-05T17:13:20.392728",
+    "alert_count": 1,
+    "details": {
+      "symbol": "LEMONTREE",
+      "name": "Lemon Tree Hotels Limited",
+      "passes_all": true,
+      "current_price": 164.53,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 164.53,
+        "sma_50": 162.79,
+        "sma_150": 154.0,
+        "sma_200": 149.07,
+        "week_52_high": 180.68,
+        "week_52_low": 117.51,
+        "pct_above_52w_low": 40.01,
+        "pct_from_52w_high": 8.94,
+        "volume": 2529711,
+        "avg_volume_20d": 2575899
+      },
+      "score": 9
+    }
+  },
+  "HCG": {
+    "last_alert": "2025-12-05T17:13:22.106800",
+    "alert_count": 1,
+    "details": {
+      "symbol": "HCG",
+      "name": "HealthCare Global Enterprises Limited",
+      "passes_all": true,
+      "current_price": 720.05,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 720.05,
+        "sma_50": 716.49,
+        "sma_150": 638.56,
+        "sma_200": 610.45,
+        "week_52_high": 804.65,
+        "week_52_low": 456.95,
+        "pct_above_52w_low": 57.58,
+        "pct_from_52w_high": 10.51,
+        "volume": 218723,
+        "avg_volume_20d": 188784
+      },
+      "score": 9
+    }
+  },
+  "RADICO": {
+    "last_alert": "2025-12-05T17:13:23.788469",
+    "alert_count": 1,
+    "details": {
+      "symbol": "RADICO",
+      "name": "Radico Khaitan Limited",
+      "passes_all": true,
+      "current_price": 3201.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 3201.9,
+        "sma_50": 3143.05,
+        "sma_150": 2853.42,
+        "sma_200": 2705.21,
+        "week_52_high": 3591.9,
+        "week_52_low": 1842.83,
+        "pct_above_52w_low": 73.75,
+        "pct_from_52w_high": 10.86,
+        "volume": 138023,
+        "avg_volume_20d": 598400
+      },
+      "score": 9
+    }
+  },
+  "SUPRAJIT": {
+    "last_alert": "2025-12-05T17:13:25.729980",
+    "alert_count": 1,
+    "details": {
+      "symbol": "SUPRAJIT",
+      "name": "Suprajit Engineering Limited",
+      "passes_all": true,
+      "current_price": 459.3,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 459.3,
+        "sma_50": 454.05,
+        "sma_150": 449.98,
+        "sma_200": 436.01,
+        "week_52_high": 517.65,
+        "week_52_low": 348.67,
+        "pct_above_52w_low": 31.73,
+        "pct_from_52w_high": 11.27,
+        "volume": 46356,
+        "avg_volume_20d": 170131
+      },
+      "score": 9
+    }
+  },
+  "LATENTVIEW": {
+    "last_alert": "2025-12-05T17:13:27.621591",
+    "alert_count": 1,
+    "details": {
+      "symbol": "LATENTVIEW",
+      "name": "Latent View Analytics Limited",
+      "passes_all": true,
+      "current_price": 450.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 450.9,
+        "sma_50": 449.15,
+        "sma_150": 427.56,
+        "sma_200": 416.03,
+        "week_52_high": 520.25,
+        "week_52_low": 341.2,
+        "pct_above_52w_low": 32.15,
+        "pct_from_52w_high": 13.33,
+        "volume": 268448,
+        "avg_volume_20d": 1090400
+      },
+      "score": 9
+    }
+  },
+  "ASTRAZEN": {
+    "last_alert": "2025-12-05T17:13:29.535434",
+    "alert_count": 1,
+    "details": {
+      "symbol": "ASTRAZEN",
+      "name": "AstraZeneca Pharma India Limited",
+      "passes_all": true,
+      "current_price": 9226.5,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 9226.5,
+        "sma_50": 9183.99,
+        "sma_150": 8950.93,
+        "sma_200": 8685.99,
+        "week_52_high": 10654.58,
+        "week_52_low": 6291.25,
+        "pct_above_52w_low": 46.66,
+        "pct_from_52w_high": 13.4,
+        "volume": 4344,
+        "avg_volume_20d": 9947
+      },
+      "score": 9
+    }
+  },
+  "TATVA": {
+    "last_alert": "2025-12-05T17:13:31.439490",
+    "alert_count": 1,
+    "details": {
+      "symbol": "TATVA",
+      "name": "Tatva Chintan Pharma Chem Limited",
+      "passes_all": true,
+      "current_price": 1387.2,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1387.2,
+        "sma_50": 1328.15,
+        "sma_150": 1094.58,
+        "sma_200": 995.41,
+        "week_52_high": 1610.0,
+        "week_52_low": 620.38,
+        "pct_above_52w_low": 123.6,
+        "pct_from_52w_high": 13.84,
+        "volume": 65502,
+        "avg_volume_20d": 154562
+      },
+      "score": 9
+    }
+  },
+  "DCMSHRIRAM": {
+    "last_alert": "2025-12-05T17:13:33.507048",
+    "alert_count": 1,
+    "details": {
+      "symbol": "DCMSHRIRAM",
+      "name": "DCM Shriram Limited",
+      "passes_all": true,
+      "current_price": 1220.9,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 1220.9,
+        "sma_50": 1217.37,
+        "sma_150": 1217.32,
+        "sma_200": 1170.33,
+        "week_52_high": 1494.38,
+        "week_52_low": 897.84,
+        "pct_above_52w_low": 35.98,
+        "pct_from_52w_high": 18.3,
+        "volume": 27322,
+        "avg_volume_20d": 219273
+      },
+      "score": 9
+    }
+  },
+  "MAHLIFE": {
+    "last_alert": "2025-12-05T17:13:35.220676",
+    "alert_count": 1,
+    "details": {
+      "symbol": "MAHLIFE",
+      "name": "Mahindra Lifespace Developers Limited",
+      "passes_all": true,
+      "current_price": 412.6,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 412.6,
+        "sma_50": 386.4,
+        "sma_150": 362.62,
+        "sma_200": 352.71,
+        "week_52_high": 513.08,
+        "week_52_low": 276.59,
+        "pct_above_52w_low": 49.17,
+        "pct_from_52w_high": 19.58,
+        "volume": 128478,
+        "avg_volume_20d": 189701
+      },
+      "score": 9
+    }
+  },
+  "APARINDS": {
+    "last_alert": "2025-12-05T17:13:36.866468",
+    "alert_count": 1,
+    "details": {
+      "symbol": "APARINDS",
+      "name": "APAR Industries Limited",
+      "passes_all": true,
+      "current_price": 8899.0,
+      "criteria": {
+        "1_price_above_150sma": true,
+        "2_price_above_200sma": true,
+        "3_150sma_above_200sma": true,
+        "4_200sma_trending_up": true,
+        "5_50sma_above_150sma": true,
+        "6_50sma_above_200sma": true,
+        "7_price_above_50sma": true,
+        "8_price_30pct_above_52w_low": true,
+        "9_price_within_25pct_of_52w_high": true
+      },
+      "metrics": {
+        "current_price": 8899.0,
+        "sma_50": 8739.6,
+        "sma_150": 8365.78,
+        "sma_200": 7681.64,
+        "week_52_high": 11710.57,
+        "week_52_low": 4282.69,
+        "pct_above_52w_low": 107.79,
+        "pct_from_52w_high": 24.01,
+        "volume": 28624,
+        "avg_volume_20d": 73247
+      },
+      "score": 9
+    }
+  }
+}
