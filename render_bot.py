@@ -58,6 +58,9 @@ application = None
 scan_lock = threading.Lock()
 is_scanning = False
 
+# Store the main event loop for thread-safe async calls
+main_loop = None
+
 
 # ============ STORAGE FUNCTIONS ============
 
@@ -327,6 +330,8 @@ def health():
 @flask_app.route('/trigger-scan/<scan_type>')
 def trigger_scan(scan_type):
     """Trigger a scan via HTTP (for cron jobs)"""
+    global main_loop
+    
     if scan_type not in ['fullscan', 'scanall']:
         return Response(json.dumps({"error": "Invalid scan type"}), status=400)
     
@@ -336,13 +341,9 @@ def trigger_scan(scan_type):
     if not chat_id:
         return Response(json.dumps({"error": "No chat_id stored. Send /fullscan or /scanall first."}), status=400)
     
-    # Run scan in background
-    def run_async():
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(run_chunked_scan(chat_id, scan_type))
-    
-    Thread(target=run_async).start()
+    if main_loop:
+        # Run scan using the main event loop
+        asyncio.run_coroutine_threadsafe(run_chunked_scan(chat_id, scan_type), main_loop)
     
     return Response(json.dumps({"status": "scan_started", "type": scan_type}), status=200)
 
@@ -350,10 +351,15 @@ def trigger_scan(scan_type):
 @flask_app.route('/webhook', methods=['POST'])
 def webhook():
     """Handle incoming Telegram updates via webhook"""
-    global application
-    if application:
+    global application, main_loop
+    if application and main_loop:
         update = Update.de_json(request.get_json(force=True), application.bot)
-        asyncio.run(application.process_update(update))
+        # Use run_coroutine_threadsafe instead of asyncio.run() to avoid closing event loop
+        future = asyncio.run_coroutine_threadsafe(application.process_update(update), main_loop)
+        try:
+            future.result(timeout=30)  # Wait up to 30 seconds for processing
+        except Exception as e:
+            logger.error(f"Error processing update: {e}")
     return Response('ok', status=200)
 
 
@@ -750,18 +756,33 @@ async def setup_webhook():
 
 def run_flask():
     """Run Flask"""
-    flask_app.run(host='0.0.0.0', port=PORT, debug=False, use_reloader=False)
+    flask_app.run(host='0.0.0.0', port=PORT, debug=False, use_reloader=False, threaded=True)
+
+
+def run_async_loop(loop):
+    """Run the async event loop in a separate thread"""
+    asyncio.set_event_loop(loop)
+    loop.run_forever()
 
 
 if __name__ == "__main__":
     print("🚀 Starting Minervini Bot for Render...")
     print(f"📡 Port: {PORT}")
     
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(setup_webhook())
+    # Create and store the main event loop in the module's global scope
+    _main_loop = asyncio.new_event_loop()
+    globals()['main_loop'] = _main_loop
+    asyncio.set_event_loop(_main_loop)
+    
+    # Setup webhook (initialize application)
+    _main_loop.run_until_complete(setup_webhook())
     
     print("✅ Bot ready with chunked scanning!")
     print(f"🌐 Health: http://localhost:{PORT}/health")
     
+    # Run the event loop in a background thread so it stays alive
+    loop_thread = Thread(target=run_async_loop, args=(_main_loop,), daemon=True)
+    loop_thread.start()
+    
+    # Run Flask in the main thread (blocking)
     run_flask()
