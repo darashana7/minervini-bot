@@ -17,7 +17,7 @@ class GeminiStockAnalyzer:
         if not api_key:
             raise ValueError("GEMINI_API_KEY environment variable not set")
         self.client = genai.Client(api_key=api_key)
-        self.model = "gemini-2.0-flash"  # Fast, efficient model with good free tier
+        self.model = "gemini-2.5-flash-live"  # Latest Gemini 2.5 model
     
     def analyze_stock(self, symbol: str, stock_data: dict) -> dict:
         """
