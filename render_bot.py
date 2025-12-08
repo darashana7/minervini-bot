@@ -21,6 +21,7 @@ sys.path.append(os.path.dirname(__file__))
 from src.minervini_screener import MinerviniScreener
 from src.stock_list import get_nse_stock_list
 from src.all_nse_stocks import get_all_nse_stocks, get_nse_stock_count
+from src.gemini_analyzer import GeminiStockAnalyzer
 
 # Configuration
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "8557128929:AAFrPNOsb-T_ygpaqu2MI0DbuZYEA2JT1rg")
@@ -391,6 +392,9 @@ Welcome! I can scan NSE stocks using Mark Minervini's Trend Template.
 /scan - Quick scan (top 50 stocks)
 /check SYMBOL - Check specific stock
 
+<b>🤖 AI Analysis:</b>
+/ai SYMBOL - Get AI entry/stop-loss levels
+
 <b>🔄 Full Scans (with progress):</b>
 /fullscan - Nifty 500 scan (~500 stocks)
 /scanall - ALL NSE stocks (~2000 stocks)
@@ -719,6 +723,66 @@ async def list_results(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(footer, parse_mode='HTML')
 
 
+async def ai_analysis(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Get AI-powered entry/stop-loss analysis using Google Gemini"""
+    if not context.args:
+        await update.message.reply_text("❌ Please provide a stock symbol.\nExample: /ai RELIANCE")
+        return
+    
+    symbol = context.args[0].upper()
+    await update.message.reply_text(f"🤖 Analyzing {symbol} with AI...")
+    
+    try:
+        # Get stock data first using the screener
+        result = screener.check_trend_template(symbol)
+        if not result:
+            await update.message.reply_text(f"❌ Could not fetch data for {symbol}")
+            return
+        
+        # Prepare data for AI analysis
+        stock_data = {
+            'current_price': float(result.current_price),
+            'sma_50': float(result.metrics['sma_50']),
+            'sma_150': float(result.metrics['sma_150']),
+            'sma_200': float(result.metrics['sma_200']),
+            'week_52_high': float(result.metrics['week_52_high']),
+            'week_52_low': float(result.metrics['week_52_low'])
+        }
+        
+        # Get AI analysis from Gemini
+        analyzer = GeminiStockAnalyzer()
+        analysis = analyzer.analyze_stock(symbol, stock_data)
+        
+        # Format response
+        trend_status = "✅ PASSES" if result.passes_all else "❌ FAILS"
+        
+        message = f"""🤖 <b>AI Analysis: {symbol}</b>
+
+💰 Current Price: ₹{result.current_price:,.2f}
+📊 Minervini Score: {result.score}/9 {trend_status}
+
+<b>🎯 AI Recommendations:</b>
+📈 Entry Level: {analysis['entry_level']}
+🛑 Stop Loss: {analysis['stop_loss']}
+🎖️ Target: {analysis['target']}
+
+<b>💡 Analysis:</b>
+{analysis['reasoning']}
+
+⚠️ <i>AI suggestions for educational purposes only. Do your own research.</i>"""
+        
+        await update.message.reply_text(message, parse_mode='HTML')
+        
+    except ValueError as e:
+        if "GEMINI_API_KEY" in str(e):
+            await update.message.reply_text("❌ Gemini API not configured. Contact admin to set GEMINI_API_KEY.")
+        else:
+            await update.message.reply_text(f"❌ Error: {str(e)}")
+    except Exception as e:
+        logger.error(f"AI analysis error for {symbol}: {e}")
+        await update.message.reply_text(f"❌ AI analysis failed: {str(e)}")
+
+
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle regular messages"""
     text = update.message.text.upper()
@@ -748,6 +812,7 @@ async def setup_webhook():
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("nse", nse_stocks))
     application.add_handler(CommandHandler("check", check_stock))
+    application.add_handler(CommandHandler("ai", ai_analysis))
     application.add_handler(CommandHandler("scan", quick_scan))
     application.add_handler(CommandHandler("fullscan", full_scan))
     application.add_handler(CommandHandler("scanall", scan_all_nse))
