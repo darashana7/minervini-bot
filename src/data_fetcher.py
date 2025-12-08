@@ -113,55 +113,77 @@ class StockDataFetcher:
         if cached:
             return cached
         
-        try:
-            ticker = yf.Ticker(nse_symbol)
-            info = ticker.info
-            
-            # Get historical data for calculations
-            hist = ticker.history(period="1y")
-            
-            if hist.empty:
-                logger.warning(f"No historical data for {nse_symbol}")
+        # Retry logic for network issues
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                ticker = yf.Ticker(nse_symbol)
+                info = ticker.info
+                
+                # Get historical data for calculations
+                hist = ticker.history(period="1y")
+                
+                if hist.empty:
+                    logger.warning(f"No historical data for {nse_symbol} (attempt {attempt + 1}/{max_retries})")
+                    if attempt < max_retries - 1:
+                        import time
+                        time.sleep(1)  # Wait before retry
+                        continue
+                    return None
+                
+                # Calculate key values
+                current_price = hist['Close'].iloc[-1]
+                week_52_high = hist['High'].max()
+                week_52_low = hist['Low'].min()
+                
+                # Calculate SMAs
+                sma_50 = hist['Close'].rolling(window=50).mean().iloc[-1] if len(hist) >= 50 else None
+                sma_150 = hist['Close'].rolling(window=150).mean().iloc[-1] if len(hist) >= 150 else None
+                sma_200 = hist['Close'].rolling(window=200).mean().iloc[-1] if len(hist) >= 200 else None
+                
+                # Calculate 200-day SMA from 1 month ago
+                sma_200_1m_ago = hist['Close'].rolling(window=200).mean().iloc[-22] if len(hist) >= 222 else None
+                
+                # Convert numpy types to native Python types
+                def to_native(val):
+                    if val is None:
+                        return None
+                    try:
+                        return float(val)
+                    except (TypeError, ValueError):
+                        return val
+                
+                result = {
+                    "symbol": nse_symbol,
+                    "name": info.get("longName", symbol),
+                    "current_price": round(to_native(current_price), 2),
+                    "week_52_high": round(to_native(week_52_high), 2),
+                    "week_52_low": round(to_native(week_52_low), 2),
+                    "sma_50": round(to_native(sma_50), 2) if sma_50 is not None else None,
+                    "sma_150": round(to_native(sma_150), 2) if sma_150 is not None else None,
+                    "sma_200": round(to_native(sma_200), 2) if sma_200 is not None else None,
+                    "sma_200_1m_ago": round(to_native(sma_200_1m_ago), 2) if sma_200_1m_ago is not None else None,
+                    "percent_from_52w_high": round(to_native((week_52_high - current_price) / week_52_high * 100), 2),
+                    "percent_above_52w_low": round(to_native((current_price - week_52_low) / week_52_low * 100), 2),
+                    "volume": int(hist['Volume'].iloc[-1]),
+                    "avg_volume_20d": int(hist['Volume'].tail(20).mean()),
+                    "timestamp": datetime.now().isoformat()
+                }
+                
+                # Cache the result
+                self._save_to_cache(nse_symbol, result)
+                
+                return result
+                
+            except Exception as e:
+                logger.error(f"Error getting info for {nse_symbol} (attempt {attempt + 1}/{max_retries}): {e}")
+                if attempt < max_retries - 1:
+                    import time
+                    time.sleep(1)  # Wait before retry
+                    continue
                 return None
-            
-            # Calculate key values
-            current_price = hist['Close'].iloc[-1]
-            week_52_high = hist['High'].max()
-            week_52_low = hist['Low'].min()
-            
-            # Calculate SMAs
-            sma_50 = hist['Close'].rolling(window=50).mean().iloc[-1] if len(hist) >= 50 else None
-            sma_150 = hist['Close'].rolling(window=150).mean().iloc[-1] if len(hist) >= 150 else None
-            sma_200 = hist['Close'].rolling(window=200).mean().iloc[-1] if len(hist) >= 200 else None
-            
-            # Calculate 200-day SMA from 1 month ago
-            sma_200_1m_ago = hist['Close'].rolling(window=200).mean().iloc[-22] if len(hist) >= 222 else None
-            
-            result = {
-                "symbol": nse_symbol,
-                "name": info.get("longName", symbol),
-                "current_price": round(current_price, 2),
-                "week_52_high": round(week_52_high, 2),
-                "week_52_low": round(week_52_low, 2),
-                "sma_50": round(sma_50, 2) if sma_50 else None,
-                "sma_150": round(sma_150, 2) if sma_150 else None,
-                "sma_200": round(sma_200, 2) if sma_200 else None,
-                "sma_200_1m_ago": round(sma_200_1m_ago, 2) if sma_200_1m_ago else None,
-                "percent_from_52w_high": round(((week_52_high - current_price) / week_52_high) * 100, 2),
-                "percent_above_52w_low": round(((current_price - week_52_low) / week_52_low) * 100, 2),
-                "volume": int(hist['Volume'].iloc[-1]),
-                "avg_volume_20d": int(hist['Volume'].tail(20).mean()),
-                "timestamp": datetime.now().isoformat()
-            }
-            
-            # Cache the result
-            self._save_to_cache(nse_symbol, result)
-            
-            return result
-            
-        except Exception as e:
-            logger.error(f"Error getting info for {nse_symbol}: {e}")
-            return None
+        
+        return None
     
     def get_historical_prices(self, symbol: str, days: int = 250) -> Optional[pd.DataFrame]:
         """
