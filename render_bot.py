@@ -15,6 +15,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 import asyncio
 from threading import Thread
 import threading
+import numpy as np
 
 sys.path.append(os.path.dirname(__file__))
 from src.minervini_screener import MinerviniScreener
@@ -62,6 +63,20 @@ is_scanning = False
 main_loop = None
 
 
+# ============ JSON ENCODER FOR NUMPY TYPES ============
+
+class NumpyEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles numpy types"""
+    def default(self, obj):
+        if isinstance(obj, (np.integer,)):
+            return int(obj)
+        if isinstance(obj, (np.floating,)):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super().default(obj)
+
+
 # ============ STORAGE FUNCTIONS ============
 
 def load_scan_state():
@@ -79,7 +94,7 @@ def save_scan_state(state):
     """Save scan state to file"""
     try:
         with open(SCAN_STATE_FILE, 'w') as f:
-            json.dump(state, f, indent=2)
+            json.dump(state, f, indent=2, cls=NumpyEncoder)
     except Exception as e:
         logger.error(f"Error saving scan state: {e}")
 
@@ -108,7 +123,7 @@ def save_scan_results(results):
     """Save scan results to file"""
     try:
         with open(SCAN_RESULTS_FILE, 'w') as f:
-            json.dump(results, f, indent=2)
+            json.dump(results, f, indent=2, cls=NumpyEncoder)
     except Exception as e:
         logger.error(f"Error saving scan results: {e}")
 
