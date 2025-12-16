@@ -16,6 +16,9 @@ import asyncio
 from threading import Thread
 import threading
 import numpy as np
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+import pytz
 
 sys.path.append(os.path.dirname(__file__))
 from src.minervini_screener import MinerviniScreener
@@ -62,6 +65,10 @@ is_scanning = False
 
 # Store the main event loop for thread-safe async calls
 main_loop = None
+
+# Scheduler
+scheduler = AsyncIOScheduler()
+SETTINGS_FILE = os.path.join(DATA_DIR, 'bot_settings.json')
 
 
 # ============ JSON ENCODER FOR NUMPY TYPES ============
@@ -144,6 +151,26 @@ def add_to_scan_results(stock_data, scan_type):
     
     save_scan_results(results)
     return len(results['stocks'])
+
+
+def load_bot_settings():
+    """Load bot settings (daily scan, chat_id)"""
+    try:
+        if os.path.exists(SETTINGS_FILE):
+            with open(SETTINGS_FILE, 'r') as f:
+                return json.load(f)
+    except Exception as e:
+        logger.error(f"Error loading settings: {e}")
+    return {"daily_scan_enabled": False, "target_chat_id": None, "scan_time_iso": "18:00"}
+
+
+def save_bot_settings(settings):
+    """Save bot settings"""
+    try:
+        with open(SETTINGS_FILE, 'w') as f:
+            json.dump(settings, f, indent=2)
+    except Exception as e:
+        logger.error(f"Error saving settings: {e}")
 
 
 # ============ CHUNKED SCANNING ============
@@ -291,6 +318,100 @@ async def run_chunked_scan(chat_id, scan_type="fullscan"):
         return False
     finally:
         is_scanning = False
+
+
+
+# ============ SCHEDULING ============
+
+async def scheduled_scan_job():
+    """Job to run daily scan"""
+    logger.info("⏰ Triggering scheduled daily scan...")
+    settings = load_bot_settings()
+    
+    if not settings.get('daily_scan_enabled'):
+        logger.info("Daily scan disabled in settings.")
+        return
+        
+    chat_id = settings.get('target_chat_id')
+    if not chat_id:
+        logger.warning("No target chat ID for daily scan.")
+        return
+        
+    # Send Start Notification
+    await application.bot.send_message(
+        chat_id=chat_id,
+        text="⏰ <b>Daily Scheduled Scan Started</b>\nScanning all NSE stocks...",
+        parse_mode='HTML'
+    )
+    
+    # Trigger scan
+    await run_chunked_scan(chat_id, "scanall")
+
+
+def setup_scheduler(settings):
+    """Configure scheduler jobs"""
+    global scheduler
+    
+    # Remove existing jobs
+    properties = scheduler.get_jobs()
+    for job in properties:
+        scheduler.remove_job(job.id)
+    
+    if settings.get('daily_scan_enabled'):
+        # Parse time (default 18:00 IST)
+        # We always run at 18:00 IST (6:00 PM) for now
+        # IST is UTC+5:30
+        
+        # Using cron trigger regarding IST timezone
+        tz = pytz.timezone('Asia/Kolkata')
+        
+        scheduler.add_job(
+            scheduled_scan_job,
+            CronTrigger(hour=18, minute=0, timezone=tz),
+            id='daily_scan',
+            replace_existing=True
+        )
+        logger.info(f"Scheduled daily scan for 18:00 IST")
+
+
+async def autodaily_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Toggle daily auto-scan"""
+    chat_id = update.effective_chat.id
+    settings = load_bot_settings()
+    
+    current_status = settings.get('daily_scan_enabled', False)
+    
+    # Toggle or set based on args
+    if context.args:
+        arg = context.args[0].lower()
+        if arg in ['on', 'enable', 'yes', 'true']:
+            new_status = True
+        elif arg in ['off', 'disable', 'no', 'false']:
+            new_status = False
+        else:
+            await update.message.reply_text("Usage: /autodaily [on/off]")
+            return
+    else:
+        # Toggle
+        new_status = not current_status
+    
+    settings['daily_scan_enabled'] = new_status
+    settings['target_chat_id'] = chat_id
+    save_bot_settings(settings)
+    
+    # Update scheduler
+    setup_scheduler(settings)
+    
+    status_text = "ENABLED" if new_status else "DISABLED"
+    status_icon = "✅" if new_status else "❌"
+    
+    await update.message.reply_text(
+        f"{status_icon} <b>Daily Auto-Scan {status_text}</b>\n\n"
+        f"⏰ Time: 6:00 PM IST (Market Close)\n"
+        f"🎯 Target Chat: {chat_id}\n"
+        f"📊 Scope: ALL NSE Stocks (~2000)",
+        parse_mode='HTML'
+    )
 
 
 # ============ FLASK ROUTES ============
@@ -820,6 +941,7 @@ async def setup_webhook():
     application.add_handler(CommandHandler("progress", progress_command))
     application.add_handler(CommandHandler("stop", stop_command))
     application.add_handler(CommandHandler("resume", resume_command))
+    application.add_handler(CommandHandler("autodaily", autodaily_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     
     await application.initialize()
@@ -842,6 +964,17 @@ def run_flask():
 def run_async_loop(loop):
     """Run the async event loop in a separate thread"""
     asyncio.set_event_loop(loop)
+    
+    # Initialize and start scheduler
+    try:
+        settings = load_bot_settings()
+        setup_scheduler(settings)
+        if not scheduler.running:
+            scheduler.start()
+            logger.info("✅ Scheduler started in background thread")
+    except Exception as e:
+        logger.error(f"Failed to start scheduler: {e}")
+        
     loop.run_forever()
 
 
