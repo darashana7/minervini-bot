@@ -17,7 +17,8 @@ class GeminiStockAnalyzer:
         if not api_key:
             raise ValueError("GEMINI_API_KEY environment variable not set")
         self.client = genai.Client(api_key=api_key)
-        self.model = "gemini-3-pro-preview"  # Gemini 3 Pro Preview
+        # Primary and fallback models
+        self.models = ["gemini-2.0-flash-exp", "gemini-1.5-flash"]
     
     def analyze_stock(self, symbol: str, stock_data: dict) -> dict:
         """
@@ -31,18 +32,22 @@ class GeminiStockAnalyzer:
         Returns:
             Dict with entry_level, stop_loss, target, reasoning
         """
-        try:
-            prompt = self._build_prompt(symbol, stock_data)
-            
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=prompt
-            )
-            
-            return self._parse_response(response.text)
-        except Exception as e:
-            logger.error(f"Gemini API error for {symbol}: {e}")
-            raise
+        for model in self.models:
+            try:
+                prompt = self._build_prompt(symbol, stock_data)
+                
+                response = self.client.models.generate_content(
+                    model=model,
+                    contents=prompt
+                )
+                
+                return self._parse_response(response.text)
+            except Exception as e:
+                logger.warning(f"Gemini API error with {model} for {symbol}: {e}")
+                # If this was the last model, raise the exception
+                if model == self.models[-1]:
+                    logger.error(f"All Gemini models failed for {symbol}")
+                    raise
     
     def _build_prompt(self, symbol: str, data: dict) -> str:
         """Build the analysis prompt for Gemini"""
