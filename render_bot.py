@@ -512,6 +512,7 @@ Welcome! I can scan NSE stocks using Mark Minervini's Trend Template.
 <b>📊 Quick Commands:</b>
 /scan - Quick scan (top 50 stocks)
 /check SYMBOL - Check specific stock
+/autodaily [on/off] - Enable daily 6PM scan ⏰
 
 <b>🤖 AI Analysis:</b>
 /ai SYMBOL - Get AI entry/stop-loss levels
