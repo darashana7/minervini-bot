@@ -20,6 +20,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 import pytz
 import redis
+from pymongo import MongoClient
 
 sys.path.append(os.path.dirname(__file__))
 from src.minervini_screener import MinerviniScreener
@@ -85,6 +86,22 @@ if REDIS_URL:
         logger.error(f"❌ Redis connection failed: {e}")
         redis_client = None
 
+# Initialize MongoDB
+mongo_client = None
+mongo_db = None
+MONGO_URI = os.environ.get('MONGO_URI')
+if MONGO_URI:
+    try:
+        mongo_client = MongoClient(MONGO_URI)
+        mongo_db = mongo_client.get_default_database()
+        # Test connection
+        mongo_client.admin.command('ping')
+        logger.info("✅ MongoDB connected successfully")
+    except Exception as e:
+        logger.error(f"❌ MongoDB connection failed: {e}")
+        mongo_client = None
+        mongo_db = None
+
 
 # ============ JSON ENCODER FOR NUMPY TYPES ============
 
@@ -103,8 +120,15 @@ class NumpyEncoder(json.JSONEncoder):
 # ============ STORAGE FUNCTIONS ============
 
 def load_scan_state():
-    """Load current scan state from Redis or file"""
+    """Load current scan state from MongoDB, Redis, or file"""
     try:
+        if mongo_db is not None:
+            state = mongo_db.scan_state.find_one({'_id': 'current_state'})
+            if state:
+                # Remove _id field
+                state.pop('_id', None)
+                return state
+        
         if redis_client:
             data = redis_client.get('scan_state')
             if data:
@@ -118,8 +142,14 @@ def load_scan_state():
 
 
 def save_scan_state(state):
-    """Save scan state to Redis or file"""
+    """Save scan state to MongoDB, Redis, or file"""
     try:
+        if mongo_db is not None:
+            # Add _id for singleton document
+            state_copy = state.copy()
+            state_copy['_id'] = 'current_state'
+            mongo_db.scan_state.replace_one({'_id': 'current_state'}, state_copy, upsert=True)
+        
         if redis_client:
             redis_client.set('scan_state', json.dumps(state, cls=NumpyEncoder))
         else:
@@ -130,8 +160,11 @@ def save_scan_state(state):
 
 
 def clear_scan_state():
-    """Clear scan state from Redis or file"""
+    """Clear scan state from MongoDB, Redis, or file"""
     try:
+        if mongo_db is not None:
+            mongo_db.scan_state.delete_one({'_id': 'current_state'})
+            
         if redis_client:
             redis_client.delete('scan_state')
         elif os.path.exists(SCAN_STATE_FILE):
@@ -141,8 +174,14 @@ def clear_scan_state():
 
 
 def load_scan_results():
-    """Load scan results from Redis or file"""
+    """Load scan results from MongoDB, Redis, or file"""
     try:
+        if mongo_db is not None:
+            results = mongo_db.scan_results.find_one({'_id': 'latest_results'})
+            if results:
+                results.pop('_id', None)
+                return results
+                
         if redis_client:
             data = redis_client.get('scan_results')
             if data:
@@ -156,8 +195,13 @@ def load_scan_results():
 
 
 def save_scan_results(results):
-    """Save scan results to Redis or file"""
+    """Save scan results to MongoDB, Redis, or file"""
     try:
+        if mongo_db is not None:
+            results_copy = results.copy()
+            results_copy['_id'] = 'latest_results'
+            mongo_db.scan_results.replace_one({'_id': 'latest_results'}, results_copy, upsert=True)
+            
         if redis_client:
             redis_client.set('scan_results', json.dumps(results, cls=NumpyEncoder))
         else:
@@ -185,8 +229,14 @@ def add_to_scan_results(stock_data, scan_type):
 
 
 def load_bot_settings():
-    """Load bot settings from Redis or file"""
+    """Load bot settings from MongoDB, Redis, or file"""
     try:
+        if mongo_db is not None:
+            settings = mongo_db.bot_settings.find_one({'_id': 'global_settings'})
+            if settings:
+                settings.pop('_id', None)
+                return settings
+                
         if redis_client:
             data = redis_client.get('bot_settings')
             if data:
@@ -200,8 +250,13 @@ def load_bot_settings():
 
 
 def save_bot_settings(settings):
-    """Save bot settings to Redis or file"""
+    """Save bot settings to MongoDB, Redis, or file"""
     try:
+        if mongo_db is not None:
+            settings_copy = settings.copy()
+            settings_copy['_id'] = 'global_settings'
+            mongo_db.bot_settings.replace_one({'_id': 'global_settings'}, settings_copy, upsert=True)
+            
         if redis_client:
             redis_client.set('bot_settings', json.dumps(settings))
         else:
