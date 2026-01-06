@@ -26,6 +26,7 @@ from src.minervini_screener import MinerviniScreener
 from src.stock_list import get_nse_stock_list
 from src.all_nse_stocks import get_all_nse_stocks, get_nse_stock_count
 from src.gemini_analyzer import GeminiStockAnalyzer
+from config.config import SCAN_TIMES
 
 # Configuration
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "8557128929:AAFrPNOsb-T_ygpaqu2MI0DbuZYEA2JT1rg")
@@ -274,9 +275,10 @@ async def run_chunked_scan(chat_id, scan_type="fullscan"):
                 'chat_id': chat_id
             })
             
-            # Scan this chunk
+            # Scan this chunk in a separate thread to avoid blocking the event loop
             try:
-                results = screener.scan_stocks(chunk, min_score=9)
+                # database calls are synchronous, must run in thread
+                results = await asyncio.to_thread(screener.scan_stocks, chunk, min_score=9)
                 
                 for r in results:
                     stock_data = {
@@ -377,7 +379,7 @@ async def scheduled_scan_job():
     # Send Start Notification
     await application.bot.send_message(
         chat_id=chat_id,
-        text="⏰ <b>Daily Scheduled Scan Started</b>\nScanning all NSE stocks...",
+        text="⏰ <b>Scheduled Scan Started</b>\nScanning all NSE stocks...",
         parse_mode='HTML'
     )
     
@@ -395,20 +397,35 @@ def setup_scheduler(settings):
         scheduler.remove_job(job.id)
     
     if settings.get('daily_scan_enabled'):
-        # Parse time (default 18:00 IST)
-        # We always run at 18:00 IST (6:00 PM) for now
-        # IST is UTC+5:30
-        
-        # Using cron trigger regarding IST timezone
         tz = pytz.timezone('Asia/Kolkata')
         
-        scheduler.add_job(
-            scheduled_scan_job,
-            CronTrigger(hour=18, minute=0, timezone=tz),
-            id='daily_scan',
-            replace_existing=True
-        )
-        logger.info(f"Scheduled daily scan for 18:00 IST")
+        # Schedule all times from config
+        try:
+            scheduled_count = 0
+            for i, time_str in enumerate(SCAN_TIMES):
+                try:
+                    h, m = map(int, time_str.split(':'))
+                    scheduler.add_job(
+                        scheduled_scan_job,
+                        CronTrigger(hour=h, minute=m, timezone=tz),
+                        id=f'scan_job_{i}',
+                        replace_existing=True
+                    )
+                    scheduled_count += 1
+                except ValueError:
+                    logger.warning(f"Invalid time format in config: {time_str}")
+            
+            logger.info(f"Scheduled {scheduled_count} scans from config")
+            
+        except Exception as e:
+            logger.error(f"Error scheduling from config: {e}")
+            # Fallback to 18:00
+            scheduler.add_job(
+                scheduled_scan_job,
+                CronTrigger(hour=18, minute=0, timezone=tz),
+                id='daily_scan',
+                replace_existing=True
+            )
 
 
 async def autodaily_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -442,9 +459,10 @@ async def autodaily_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     status_text = "ENABLED" if new_status else "DISABLED"
     status_icon = "✅" if new_status else "❌"
     
+    times_str = ", ".join(SCAN_TIMES)
     await update.message.reply_text(
-        f"{status_icon} <b>Daily Auto-Scan {status_text}</b>\n\n"
-        f"⏰ Time: 6:00 PM IST (Market Close)\n"
+        f"{status_icon} <b>Scheduled Scanning {status_text}</b>\n\n"
+        f"⏰ Times (IST): {times_str}\n"
         f"🎯 Target Chat: {chat_id}\n"
         f"📊 Scope: ALL NSE Stocks (~2000)",
         parse_mode='HTML'
@@ -728,14 +746,16 @@ async def check_stock(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"🔍 Checking {symbol}...")
     
     try:
-        result = screener.check_trend_template(symbol)
+        # Offload blocking network call
+        result = await asyncio.to_thread(screener.check_trend_template, symbol)
         
         if not result:
             import yfinance as yf
             try:
-                ticker = yf.Ticker(f"{symbol}.NS")
-                hist = ticker.history(period="1y")
-                info = ticker.info
+                # Offload blocking yfinance call
+                ticker = await asyncio.to_thread(yf.Ticker, f"{symbol}.NS")
+                hist = await asyncio.to_thread(ticker.history, period="1y")
+                info = await asyncio.to_thread(lambda: ticker.info)
                 
                 if not hist.empty:
                     current_price = hist['Close'].iloc[-1]
@@ -810,7 +830,8 @@ async def quick_scan(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     try:
         stocks = get_nse_stock_list()[:50]
-        results = screener.scan_stocks(stocks, min_score=9)
+        # Offload blocking scan
+        results = await asyncio.to_thread(screener.scan_stocks, stocks, min_score=9)
         
         if not results:
             await update.message.reply_text("📊 No stocks currently meet all 9 criteria.")
