@@ -19,6 +19,7 @@ import numpy as np
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 import pytz
+import redis
 
 sys.path.append(os.path.dirname(__file__))
 from src.minervini_screener import MinerviniScreener
@@ -70,6 +71,19 @@ main_loop = None
 scheduler = AsyncIOScheduler()
 SETTINGS_FILE = os.path.join(DATA_DIR, 'bot_settings.json')
 
+# Initialize Redis
+redis_client = None
+REDIS_URL = os.environ.get('REDIS_URL')
+if REDIS_URL:
+    try:
+        redis_client = redis.from_url(REDIS_URL)
+        # Test connection
+        redis_client.ping()
+        logger.info("✅ Redis connected successfully")
+    except Exception as e:
+        logger.error(f"❌ Redis connection failed: {e}")
+        redis_client = None
+
 
 # ============ JSON ENCODER FOR NUMPY TYPES ============
 
@@ -88,9 +102,13 @@ class NumpyEncoder(json.JSONEncoder):
 # ============ STORAGE FUNCTIONS ============
 
 def load_scan_state():
-    """Load current scan state from file"""
+    """Load current scan state from Redis or file"""
     try:
-        if os.path.exists(SCAN_STATE_FILE):
+        if redis_client:
+            data = redis_client.get('scan_state')
+            if data:
+                return json.loads(data)
+        elif os.path.exists(SCAN_STATE_FILE):
             with open(SCAN_STATE_FILE, 'r') as f:
                 return json.load(f)
     except Exception as e:
@@ -99,27 +117,36 @@ def load_scan_state():
 
 
 def save_scan_state(state):
-    """Save scan state to file"""
+    """Save scan state to Redis or file"""
     try:
-        with open(SCAN_STATE_FILE, 'w') as f:
-            json.dump(state, f, indent=2, cls=NumpyEncoder)
+        if redis_client:
+            redis_client.set('scan_state', json.dumps(state, cls=NumpyEncoder))
+        else:
+            with open(SCAN_STATE_FILE, 'w') as f:
+                json.dump(state, f, indent=2, cls=NumpyEncoder)
     except Exception as e:
         logger.error(f"Error saving scan state: {e}")
 
 
 def clear_scan_state():
-    """Clear scan state file"""
+    """Clear scan state from Redis or file"""
     try:
-        if os.path.exists(SCAN_STATE_FILE):
+        if redis_client:
+            redis_client.delete('scan_state')
+        elif os.path.exists(SCAN_STATE_FILE):
             os.remove(SCAN_STATE_FILE)
     except Exception as e:
         logger.error(f"Error clearing scan state: {e}")
 
 
 def load_scan_results():
-    """Load scan results from file"""
+    """Load scan results from Redis or file"""
     try:
-        if os.path.exists(SCAN_RESULTS_FILE):
+        if redis_client:
+            data = redis_client.get('scan_results')
+            if data:
+                return json.loads(data)
+        elif os.path.exists(SCAN_RESULTS_FILE):
             with open(SCAN_RESULTS_FILE, 'r') as f:
                 return json.load(f)
     except Exception as e:
@@ -128,10 +155,13 @@ def load_scan_results():
 
 
 def save_scan_results(results):
-    """Save scan results to file"""
+    """Save scan results to Redis or file"""
     try:
-        with open(SCAN_RESULTS_FILE, 'w') as f:
-            json.dump(results, f, indent=2, cls=NumpyEncoder)
+        if redis_client:
+            redis_client.set('scan_results', json.dumps(results, cls=NumpyEncoder))
+        else:
+            with open(SCAN_RESULTS_FILE, 'w') as f:
+                json.dump(results, f, indent=2, cls=NumpyEncoder)
     except Exception as e:
         logger.error(f"Error saving scan results: {e}")
 
@@ -154,9 +184,13 @@ def add_to_scan_results(stock_data, scan_type):
 
 
 def load_bot_settings():
-    """Load bot settings (daily scan, chat_id)"""
+    """Load bot settings from Redis or file"""
     try:
-        if os.path.exists(SETTINGS_FILE):
+        if redis_client:
+            data = redis_client.get('bot_settings')
+            if data:
+                return json.loads(data)
+        elif os.path.exists(SETTINGS_FILE):
             with open(SETTINGS_FILE, 'r') as f:
                 return json.load(f)
     except Exception as e:
@@ -165,10 +199,13 @@ def load_bot_settings():
 
 
 def save_bot_settings(settings):
-    """Save bot settings"""
+    """Save bot settings to Redis or file"""
     try:
-        with open(SETTINGS_FILE, 'w') as f:
-            json.dump(settings, f, indent=2)
+        if redis_client:
+            redis_client.set('bot_settings', json.dumps(settings))
+        else:
+            with open(SETTINGS_FILE, 'w') as f:
+                json.dump(settings, f, indent=2)
     except Exception as e:
         logger.error(f"Error saving settings: {e}")
 
