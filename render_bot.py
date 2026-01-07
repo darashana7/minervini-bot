@@ -34,9 +34,9 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN", "8557128929:AAFrPNOsb-T_ygpaqu2MI0DbuZYE
 RENDER_EXTERNAL_URL = os.environ.get("RENDER_EXTERNAL_URL", "")
 PORT = int(os.environ.get("PORT", 10000))
 
-# Scan settings - chunked to avoid timeouts
-CHUNK_SIZE = 30  # Stocks per chunk (small to avoid timeout)
-SCAN_INTERVAL_SECONDS = 5  # Wait between chunks
+# Scan settings - OPTIMIZED for speed
+CHUNK_SIZE = 60  # Increased from 30 - parallel fetching handles load
+SCAN_INTERVAL_SECONDS = 1  # Reduced from 5 - parallel threads handle timing
 
 # Storage paths
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -86,17 +86,33 @@ if REDIS_URL:
         logger.error(f"❌ Redis connection failed: {e}")
         redis_client = None
 
-# Initialize MongoDB
+# Initialize MongoDB with FREE TIER optimizations
 mongo_client = None
 mongo_db = None
 MONGO_URI = os.environ.get('MONGO_URI')
 if MONGO_URI:
     try:
-        mongo_client = MongoClient(MONGO_URI)
+        # Free tier optimizations:
+        # - maxPoolSize=5: Limit connections (free tier has limited connections)
+        # - serverSelectionTimeoutMS=5000: Don't hang on slow responses
+        # - connectTimeoutMS=10000: Timeout for initial connection
+        # - retryWrites=true: Retry failed writes
+        # - w=1: Acknowledge writes (not 'majority' - faster for free tier)
+        mongo_client = MongoClient(
+            MONGO_URI,
+            maxPoolSize=5,  # Free tier: limit concurrent connections
+            minPoolSize=1,
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000,
+            socketTimeoutMS=20000,
+            retryWrites=True,
+            w=1,  # Faster than 'majority' for free tier
+            compressors=['zlib']  # Compress data to save bandwidth
+        )
         mongo_db = mongo_client.get_default_database()
         # Test connection
         mongo_client.admin.command('ping')
-        logger.info("✅ MongoDB connected successfully")
+        logger.info("✅ MongoDB connected successfully (FREE TIER optimized)")
     except Exception as e:
         logger.error(f"❌ MongoDB connection failed: {e}")
         mongo_client = None
@@ -117,35 +133,93 @@ class NumpyEncoder(json.JSONEncoder):
         return super().default(obj)
 
 
-# ============ STORAGE FUNCTIONS ============
+# ============ IN-MEMORY CACHE (Reduces MongoDB reads) ============
+
+class MemoryCache:
+    """
+    Simple in-memory cache to reduce MongoDB reads
+    Free tier has limited IOPS - caching helps a lot!
+    """
+    def __init__(self, ttl_seconds=60):
+        self._cache = {}
+        self._timestamps = {}
+        self._ttl = ttl_seconds
+        self._lock = threading.Lock()
+    
+    def get(self, key):
+        """Get value if exists and not expired"""
+        with self._lock:
+            if key in self._cache:
+                if time.time() - self._timestamps[key] < self._ttl:
+                    return self._cache[key]
+                else:
+                    # Expired - clean up
+                    del self._cache[key]
+                    del self._timestamps[key]
+        return None
+    
+    def set(self, key, value):
+        """Set value with timestamp"""
+        with self._lock:
+            self._cache[key] = value
+            self._timestamps[key] = time.time()
+    
+    def delete(self, key):
+        """Remove from cache"""
+        with self._lock:
+            self._cache.pop(key, None)
+            self._timestamps.pop(key, None)
+    
+    def clear(self):
+        """Clear all cache"""
+        with self._lock:
+            self._cache.clear()
+            self._timestamps.clear()
+
+# Initialize memory cache (60 second TTL)
+memory_cache = MemoryCache(ttl_seconds=60)
+
+
+# ============ STORAGE FUNCTIONS (with caching) ============
 
 def load_scan_state():
-    """Load current scan state from MongoDB, Redis, or file"""
+    """Load current scan state - uses cache to reduce MongoDB reads"""
+    # Check memory cache first (reduces MongoDB reads)
+    cached = memory_cache.get('scan_state')
+    if cached is not None:
+        return cached
+    
     try:
         if mongo_db is not None:
             state = mongo_db.scan_state.find_one({'_id': 'current_state'})
             if state:
-                # Remove _id field
                 state.pop('_id', None)
+                memory_cache.set('scan_state', state)
                 return state
         
         if redis_client:
             data = redis_client.get('scan_state')
             if data:
-                return json.loads(data)
+                state = json.loads(data)
+                memory_cache.set('scan_state', state)
+                return state
         elif os.path.exists(SCAN_STATE_FILE):
             with open(SCAN_STATE_FILE, 'r') as f:
-                return json.load(f)
+                state = json.load(f)
+                memory_cache.set('scan_state', state)
+                return state
     except Exception as e:
         logger.error(f"Error loading scan state: {e}")
     return None
 
 
 def save_scan_state(state):
-    """Save scan state to MongoDB, Redis, or file"""
+    """Save scan state - updates cache on write"""
+    # Update cache immediately
+    memory_cache.set('scan_state', state)
+    
     try:
         if mongo_db is not None:
-            # Add _id for singleton document
             state_copy = state.copy()
             state_copy['_id'] = 'current_state'
             mongo_db.scan_state.replace_one({'_id': 'current_state'}, state_copy, upsert=True)
@@ -160,7 +234,10 @@ def save_scan_state(state):
 
 
 def clear_scan_state():
-    """Clear scan state from MongoDB, Redis, or file"""
+    """Clear scan state - invalidates cache"""
+    # Clear from cache first
+    memory_cache.delete('scan_state')
+    
     try:
         if mongo_db is not None:
             mongo_db.scan_state.delete_one({'_id': 'current_state'})
@@ -174,28 +251,41 @@ def clear_scan_state():
 
 
 def load_scan_results():
-    """Load scan results from MongoDB, Redis, or file"""
+    """Load scan results - uses cache to reduce MongoDB reads"""
+    # Check memory cache first
+    cached = memory_cache.get('scan_results')
+    if cached is not None:
+        return cached
+    
     try:
         if mongo_db is not None:
             results = mongo_db.scan_results.find_one({'_id': 'latest_results'})
             if results:
                 results.pop('_id', None)
+                memory_cache.set('scan_results', results)
                 return results
                 
         if redis_client:
             data = redis_client.get('scan_results')
             if data:
-                return json.loads(data)
+                results = json.loads(data)
+                memory_cache.set('scan_results', results)
+                return results
         elif os.path.exists(SCAN_RESULTS_FILE):
             with open(SCAN_RESULTS_FILE, 'r') as f:
-                return json.load(f)
+                results = json.load(f)
+                memory_cache.set('scan_results', results)
+                return results
     except Exception as e:
         logger.error(f"Error loading scan results: {e}")
     return {"stocks": [], "scan_type": None, "completed_at": None, "total_scanned": 0}
 
 
 def save_scan_results(results):
-    """Save scan results to MongoDB, Redis, or file"""
+    """Save scan results - updates cache on write"""
+    # Update cache immediately
+    memory_cache.set('scan_results', results)
+    
     try:
         if mongo_db is not None:
             results_copy = results.copy()
@@ -209,6 +299,80 @@ def save_scan_results(results):
                 json.dump(results, f, indent=2, cls=NumpyEncoder)
     except Exception as e:
         logger.error(f"Error saving scan results: {e}")
+    
+    # Also save to type-specific storage
+    scan_type = results.get('scan_type')
+    if scan_type:
+        save_results_by_type(scan_type, results)
+
+
+def load_results_by_type(scan_type: str):
+    """
+    Load scan results for a specific scan type.
+    This persists results separately for quick, fullscan, and scanall.
+    """
+    cache_key = f'scan_results_{scan_type}'
+    
+    # Check memory cache first
+    cached = memory_cache.get(cache_key)
+    if cached is not None:
+        return cached
+    
+    try:
+        if mongo_db is not None:
+            doc_id = f'results_{scan_type}'
+            results = mongo_db.scan_results.find_one({'_id': doc_id})
+            if results:
+                results.pop('_id', None)
+                memory_cache.set(cache_key, results)
+                return results
+                
+        if redis_client:
+            data = redis_client.get(cache_key)
+            if data:
+                results = json.loads(data)
+                memory_cache.set(cache_key, results)
+                return results
+        else:
+            # File-based: each type has its own file
+            type_file = os.path.join(DATA_DIR, f'scan_results_{scan_type}.json')
+            if os.path.exists(type_file):
+                with open(type_file, 'r') as f:
+                    results = json.load(f)
+                    memory_cache.set(cache_key, results)
+                    return results
+    except Exception as e:
+        logger.error(f"Error loading {scan_type} results: {e}")
+    
+    return {"stocks": [], "scan_type": scan_type, "completed_at": None, "total_scanned": 0}
+
+
+def save_results_by_type(scan_type: str, results):
+    """
+    Save scan results for a specific scan type.
+    Each type (quick, fullscan, scanall) is stored separately.
+    """
+    cache_key = f'scan_results_{scan_type}'
+    
+    # Update cache immediately
+    memory_cache.set(cache_key, results)
+    
+    try:
+        if mongo_db is not None:
+            doc_id = f'results_{scan_type}'
+            results_copy = results.copy()
+            results_copy['_id'] = doc_id
+            mongo_db.scan_results.replace_one({'_id': doc_id}, results_copy, upsert=True)
+            
+        if redis_client:
+            redis_client.set(cache_key, json.dumps(results, cls=NumpyEncoder))
+        else:
+            # File-based: each type has its own file
+            type_file = os.path.join(DATA_DIR, f'scan_results_{scan_type}.json')
+            with open(type_file, 'w') as f:
+                json.dump(results, f, indent=2, cls=NumpyEncoder)
+    except Exception as e:
+        logger.error(f"Error saving {scan_type} results: {e}")
 
 
 def add_to_scan_results(stock_data, scan_type):
@@ -229,28 +393,41 @@ def add_to_scan_results(stock_data, scan_type):
 
 
 def load_bot_settings():
-    """Load bot settings from MongoDB, Redis, or file"""
+    """Load bot settings - uses cache to reduce MongoDB reads"""
+    # Check memory cache first
+    cached = memory_cache.get('bot_settings')
+    if cached is not None:
+        return cached
+    
     try:
         if mongo_db is not None:
             settings = mongo_db.bot_settings.find_one({'_id': 'global_settings'})
             if settings:
                 settings.pop('_id', None)
+                memory_cache.set('bot_settings', settings)
                 return settings
                 
         if redis_client:
             data = redis_client.get('bot_settings')
             if data:
-                return json.loads(data)
+                settings = json.loads(data)
+                memory_cache.set('bot_settings', settings)
+                return settings
         elif os.path.exists(SETTINGS_FILE):
             with open(SETTINGS_FILE, 'r') as f:
-                return json.load(f)
+                settings = json.load(f)
+                memory_cache.set('bot_settings', settings)
+                return settings
     except Exception as e:
         logger.error(f"Error loading settings: {e}")
     return {"daily_scan_enabled": False, "target_chat_id": None, "scan_time_iso": "18:00"}
 
 
 def save_bot_settings(settings):
-    """Save bot settings to MongoDB, Redis, or file"""
+    """Save bot settings - updates cache on write"""
+    # Update cache immediately
+    memory_cache.set('bot_settings', settings)
+    
     try:
         if mongo_db is not None:
             settings_copy = settings.copy()
@@ -266,10 +443,18 @@ def save_bot_settings(settings):
         logger.error(f"Error saving settings: {e}")
 
 
-# ============ CHUNKED SCANNING ============
+# ============ CHUNKED SCANNING (OPTIMIZED) ============
 
 async def run_chunked_scan(chat_id, scan_type="fullscan"):
-    """Run a scan in chunks with progress updates"""
+    """
+    Run a scan in chunks with progress updates - OPTIMIZED VERSION
+    
+    Optimizations applied:
+    - Parallel stock fetching (10 stocks at once)
+    - Batch database writes (collect in memory, write at end)
+    - Progress updates at 25%, 50%, 75% only
+    - Reduced inter-chunk delay
+    """
     global is_scanning
     
     with scan_lock:
@@ -291,37 +476,45 @@ async def run_chunked_scan(chat_id, scan_type="fullscan"):
         # Load or initialize state
         state = load_scan_state()
         
+        # Track progress milestones locally (not on function)
+        sent_milestones = set()
+        
+        # Collect ALL results in memory for batch write
+        all_found_stocks = []
+        
         if state and state.get('scan_type') == scan_type and state.get('offset', 0) < total_stocks:
             # Resume existing scan
             offset = state.get('offset', 0)
             logger.info(f"Resuming {scan_type} from offset {offset}")
+            # Load existing results
+            existing_results = load_scan_results()
+            all_found_stocks = existing_results.get('stocks', [])
         else:
             # Start new scan
             offset = 0
             # Clear previous results for this scan type
             save_scan_results({"stocks": [], "scan_type": scan_type, "completed_at": None, "total_scanned": 0})
             
-            # Send start message
+            # Send start message with optimization info
             await application.bot.send_message(
                 chat_id=chat_id,
                 text=f"🔍 <b>Starting {scan_name} Scan</b>\n\n"
                      f"📊 Total stocks: {total_stocks}\n"
-                     f"⏱️ Processing in chunks of {CHUNK_SIZE}\n"
-                     f"📝 Results saved automatically\n\n"
+                     f"⚡ Mode: <b>PARALLEL</b> (10 stocks at once)\n"
+                     f"⏱️ Chunk size: {CHUNK_SIZE}\n"
+                     f"📝 Results saved at completion\n\n"
                      f"Use /progress to check status\n"
                      f"Use /stop to cancel",
                 parse_mode='HTML'
             )
         
-        found_count = len(load_scan_results().get('stocks', []))
+        found_count = len(all_found_stocks)
         
         # Process chunks
         while offset < total_stocks:
             chunk = all_stocks[offset:offset + CHUNK_SIZE]
-            chunk_num = (offset // CHUNK_SIZE) + 1
-            total_chunks = (total_stocks + CHUNK_SIZE - 1) // CHUNK_SIZE
             
-            # Save current state
+            # Save current state for resume capability
             save_scan_state({
                 'scan_type': scan_type,
                 'offset': offset,
@@ -330,11 +523,11 @@ async def run_chunked_scan(chat_id, scan_type="fullscan"):
                 'chat_id': chat_id
             })
             
-            # Scan this chunk in a separate thread to avoid blocking the event loop
+            # Scan this chunk in parallel (via screener's ThreadPoolExecutor)
             try:
-                # database calls are synchronous, must run in thread
-                results = await asyncio.to_thread(screener.scan_stocks, chunk, min_score=9)
+                results = await asyncio.to_thread(screener.scan_stocks, chunk, 9, 10)  # min_score=9, max_workers=10
                 
+                # Collect results in memory (batch write optimization)
                 for r in results:
                     stock_data = {
                         'symbol': r.symbol,
@@ -343,17 +536,8 @@ async def run_chunked_scan(chat_id, scan_type="fullscan"):
                         'score': r.score,
                         'found_at': datetime.now().isoformat()
                     }
-                    add_to_scan_results(stock_data, scan_type)
+                    all_found_stocks.append(stock_data)
                     found_count += 1
-                    
-                    # Notify user of new find
-                    await application.bot.send_message(
-                        chat_id=chat_id,
-                        text=f"✅ <b>Found: {r.symbol}</b>\n"
-                             f"💰 ₹{r.current_price:,.2f} | Score: {r.score}/9\n"
-                             f"📊 Progress: {offset + len(chunk)}/{total_stocks}",
-                        parse_mode='HTML'
-                    )
                 
             except Exception as e:
                 logger.error(f"Error scanning chunk at offset {offset}: {e}")
@@ -364,6 +548,13 @@ async def run_chunked_scan(chat_id, scan_type="fullscan"):
             # Check if scan was stopped
             current_state = load_scan_state()
             if current_state and current_state.get('stopped'):
+                # Save partial results before stopping
+                save_scan_results({
+                    "stocks": all_found_stocks, 
+                    "scan_type": scan_type, 
+                    "completed_at": None, 
+                    "total_scanned": offset
+                })
                 await application.bot.send_message(
                     chat_id=chat_id,
                     text=f"⏹️ <b>Scan Stopped</b>\n\n"
@@ -374,34 +565,53 @@ async def run_chunked_scan(chat_id, scan_type="fullscan"):
                 )
                 return True
             
-            # Progress update every 5 chunks
-            if chunk_num % 5 == 0:
-                pct = (offset / total_stocks) * 100
-                await application.bot.send_message(
-                    chat_id=chat_id,
-                    text=f"📊 <b>Progress: {pct:.1f}%</b>\n"
-                         f"Scanned: {offset}/{total_stocks}\n"
-                         f"Found: {found_count} qualifying stocks",
-                    parse_mode='HTML'
-                )
+            # Progress update at 25%, 50%, 75% milestones only (reduced API calls)
+            pct = (offset / total_stocks) * 100
+            for milestone in [25, 50, 75]:
+                if pct >= milestone and milestone not in sent_milestones:
+                    sent_milestones.add(milestone)
+                    await application.bot.send_message(
+                        chat_id=chat_id,
+                        text=f"📊 <b>Progress: {milestone}%</b>\n"
+                             f"Scanned: {offset}/{total_stocks}\n"
+                             f"Found: {found_count} qualifying stocks",
+                        parse_mode='HTML'
+                    )
+                    break  # Only send one message per chunk
             
-            # Small delay between chunks
+            # Minimal delay between chunks (parallel handles timing)
             await asyncio.sleep(SCAN_INTERVAL_SECONDS)
         
-        # Scan complete!
-        results = load_scan_results()
-        results['completed_at'] = datetime.now().isoformat()
-        results['total_scanned'] = total_stocks
-        save_scan_results(results)
+        # Scan complete - BATCH WRITE all results at once!
+        final_results = {
+            "stocks": all_found_stocks,
+            "scan_type": scan_type,
+            "completed_at": datetime.now().isoformat(),
+            "total_scanned": total_stocks
+        }
+        save_scan_results(final_results)
         clear_scan_state()
         
-        # Send completion message
+        # Send completion message with full list
+        if all_found_stocks:
+            message = f"🎯 <b>{scan_name} Scan Complete!</b>\n\n"
+            message += f"📊 Scanned: {total_stocks} stocks\n"
+            message += f"✅ Found: {len(all_found_stocks)} qualifying stocks\n\n"
+            message += "<b>📋 Qualifying Stocks:</b>\n"
+            
+            for i, stock in enumerate(all_found_stocks[:30], 1):
+                message += f"{i}. <b>{stock['symbol']}</b> | ₹{stock['price']:,.2f}\n"
+            
+            if len(all_found_stocks) > 30:
+                message += f"\n...and {len(all_found_stocks) - 30} more. Use /list to see all."
+        else:
+            message = f"🎯 <b>{scan_name} Scan Complete!</b>\n\n"
+            message += f"📊 Scanned: {total_stocks} stocks\n"
+            message += "❌ No stocks currently meet all 9 criteria."
+        
         await application.bot.send_message(
             chat_id=chat_id,
-            text=f"🎯 <b>{scan_name} Scan Complete!</b>\n\n"
-                 f"📊 Scanned: {total_stocks} stocks\n"
-                 f"✅ Found: {len(results['stocks'])} qualifying stocks\n\n"
-                 f"Use /list to see all results!",
+            text=message,
             parse_mode='HTML'
         )
         
@@ -635,13 +845,18 @@ Welcome! I can scan NSE stocks using Mark Minervini's Trend Template.
 /resume - Resume stopped scan
 
 <b>📋 Results:</b>
-/list - Show all qualifying stocks
+/list - Show latest scan results
+/list all - Summary of all scan types
+/list quick - Quick scan results only
+/list fullscan - Full scan results only
+/list scanall - All NSE scan results only
+/listquick, /listfull, /listall - Shortcuts
 
 <b>ℹ️ Info:</b>
 /nse - Show all available stocks
 /help - Show this message
 
-✨ <i>Full scans run in background and save results automatically!</i>
+✨ <i>Each scan type saves results separately!</i>
     """
     await update.message.reply_text(welcome.strip(), parse_mode='HTML')
 
@@ -922,23 +1137,105 @@ async def quick_scan(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def list_results(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Show ALL eligible stocks from stored results"""
-    results = load_scan_results()
+    """
+    Show eligible stocks from stored results.
+    Usage:
+        /list - Show latest scan results
+        /list quick - Show quick scan results
+        /list fullscan - Show fullscan results  
+        /list scanall - Show scanall results
+        /list all - Show summary of all scan types
+    """
+    # Check for scan type argument
+    scan_type = None
+    if context.args:
+        arg = context.args[0].lower()
+        if arg in ['quick', 'scan']:
+            scan_type = 'quick'
+        elif arg in ['fullscan', 'full']:
+            scan_type = 'fullscan'
+        elif arg in ['scanall', 'all_nse']:
+            scan_type = 'scanall'
+        elif arg == 'all':
+            # Show summary of all scan types
+            await show_all_scan_summaries(update)
+            return
+    
+    # Load results based on type or latest
+    if scan_type:
+        results = load_results_by_type(scan_type)
+    else:
+        results = load_scan_results()
+    
+    await display_results(update, results)
+
+
+async def show_all_scan_summaries(update: Update):
+    """Show summary of all available scan results"""
+    message = "📋 <b>All Scan Results Summary</b>\n\n"
+    
+    scan_types = [
+        ('quick', 'Quick Scan (Top 50)', '⚡'),
+        ('fullscan', 'Full Scan (Nifty 500)', '📊'),
+        ('scanall', 'All NSE (~2000)', '🌐')
+    ]
+    
+    for scan_type, name, icon in scan_types:
+        results = load_results_by_type(scan_type)
+        stocks = results.get('stocks', [])
+        completed = results.get('completed_at', 'Never')
+        if completed and len(completed) > 19:
+            completed = completed[:10]  # Just the date
+        
+        if stocks:
+            message += f"{icon} <b>{name}</b>\n"
+            message += f"   ✅ Found: {len(stocks)} stocks\n"
+            message += f"   🕐 Date: {completed}\n\n"
+        else:
+            message += f"{icon} <b>{name}</b>\n"
+            message += f"   ❌ No results yet\n\n"
+    
+    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    message += "<b>Commands:</b>\n"
+    message += "/list quick - View quick scan\n"
+    message += "/list fullscan - View full scan\n"
+    message += "/list scanall - View all NSE scan\n"
+    message += "/list - View latest scan"
+    
+    await update.message.reply_text(message, parse_mode='HTML')
+
+
+async def display_results(update: Update, results):
+    """Helper function to display scan results"""
     stocks = results.get('stocks', [])
     
     if not stocks:
-        await update.message.reply_text("📋 No results yet. Run /scan, /fullscan or /scanall first!")
+        scan_type = results.get('scan_type', 'unknown')
+        await update.message.reply_text(
+            f"📋 No results for <b>{scan_type}</b> scan.\n\n"
+            f"Run /scan, /fullscan or /scanall first!",
+            parse_mode='HTML'
+        )
         return
     
     scan_type = results.get('scan_type', 'unknown')
     completed = results.get('completed_at', 'unknown')
+    total_scanned = results.get('total_scanned', 0)
     if completed and len(completed) > 19:
         completed = completed[:19]
     
-    header = f"""📋 <b>Scan Results</b>
+    # Determine scan name for display
+    scan_names = {
+        'quick': '⚡ Quick Scan (Top 50)',
+        'fullscan': '📊 Full Scan (Nifty 500)',
+        'scanall': '🌐 All NSE Scan'
+    }
+    display_name = scan_names.get(scan_type, scan_type)
+    
+    header = f"""📋 <b>{display_name} Results</b>
 
-📊 Type: {scan_type}
-✅ Found: {len(stocks)} stocks
+✅ Found: {len(stocks)} qualifying stocks
+📊 Scanned: {total_scanned} stocks
 🕐 Completed: {completed}
 ━━━━━━━━━━━━━━━━━━━━━━━━"""
     await update.message.reply_text(header, parse_mode='HTML')
@@ -956,6 +1253,24 @@ async def list_results(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     footer = f"━━━━━━━━━━━━━━━━━━━━━━━━\n✅ <b>Total: {len(stocks)} stocks pass 9/9 criteria</b>"
     await update.message.reply_text(footer, parse_mode='HTML')
+
+
+async def list_quick(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Shortcut to list quick scan results"""
+    context.args = ['quick']
+    await list_results(update, context)
+
+
+async def list_full(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Shortcut to list fullscan results"""
+    context.args = ['fullscan']
+    await list_results(update, context)
+
+
+async def list_all_nse(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Shortcut to list scanall results"""
+    context.args = ['scanall']
+    await list_results(update, context)
 
 
 async def ai_analysis(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1052,6 +1367,9 @@ async def setup_webhook():
     application.add_handler(CommandHandler("fullscan", full_scan))
     application.add_handler(CommandHandler("scanall", scan_all_nse))
     application.add_handler(CommandHandler("list", list_results))
+    application.add_handler(CommandHandler("listquick", list_quick))
+    application.add_handler(CommandHandler("listfull", list_full))
+    application.add_handler(CommandHandler("listall", list_all_nse))
     application.add_handler(CommandHandler("progress", progress_command))
     application.add_handler(CommandHandler("stop", stop_command))
     application.add_handler(CommandHandler("resume", resume_command))

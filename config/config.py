@@ -42,7 +42,7 @@ SCAN_TIMES = [
 
 # Data Settings
 HISTORICAL_DATA_PERIOD = "1y"  # 1 year of data for calculations
-CACHE_DURATION_HOURS = 1       # Cache stock data for 1 hour
+CACHE_DURATION_HOURS = 4       # Cache stock data for 4 hours (SMA doesn't change often)
 
 # Alert Settings
 ALERT_COOLDOWN_HOURS = 24      # Don't re-alert for same stock within 24 hours

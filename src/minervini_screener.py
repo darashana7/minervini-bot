@@ -179,31 +179,54 @@ class MinerviniScreener:
             score=score
         )
     
-    def scan_stocks(self, symbols: List[str], min_score: int = 9) -> List[TrendTemplateResult]:
+    def scan_stocks(self, symbols: List[str], min_score: int = 9, max_workers: int = 10) -> List[TrendTemplateResult]:
         """
-        Scan multiple stocks and return those meeting criteria
+        Scan multiple stocks in PARALLEL and return those meeting criteria
         
         Args:
             symbols: List of stock symbols to scan
             min_score: Minimum score to include (default 9 = all criteria)
+            max_workers: Number of parallel threads (default 10 for ~5x speedup)
             
         Returns:
             List of TrendTemplateResult for qualifying stocks
         """
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        
         results = []
         total = len(symbols)
+        scanned = 0
         
-        for i, symbol in enumerate(symbols):
-            logger.info(f"Scanning {symbol} ({i+1}/{total})...")
-            
+        def scan_single(symbol: str) -> Optional[TrendTemplateResult]:
+            """Scan a single stock - runs in parallel"""
             try:
                 result = self.check_trend_template(symbol)
                 if result and result.score >= min_score:
-                    results.append(result)
                     logger.info(f"✅ {symbol} PASSES with score {result.score}/9")
+                    return result
             except Exception as e:
                 logger.error(f"Error scanning {symbol}: {e}")
-                continue
+            return None
+        
+        # Use ThreadPoolExecutor for parallel fetching
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # Submit all tasks
+            future_to_symbol = {executor.submit(scan_single, symbol): symbol for symbol in symbols}
+            
+            # Collect results as they complete
+            for future in as_completed(future_to_symbol):
+                scanned += 1
+                symbol = future_to_symbol[future]
+                try:
+                    result = future.result()
+                    if result:
+                        results.append(result)
+                except Exception as e:
+                    logger.error(f"Error getting result for {symbol}: {e}")
+                
+                # Log progress every 50 stocks
+                if scanned % 50 == 0:
+                    logger.info(f"Progress: {scanned}/{total} stocks scanned")
         
         # Sort by score (highest first)
         results.sort(key=lambda x: (x.score, -x.metrics['pct_from_52w_high']), reverse=True)
