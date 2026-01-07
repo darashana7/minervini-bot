@@ -392,6 +392,155 @@ def add_to_scan_results(stock_data, scan_type):
     return len(results['stocks'])
 
 
+# ============ PRICE ALERTS SYSTEM ============
+
+ALERTS_FILE = os.path.join(DATA_DIR, 'price_alerts.json')
+
+def load_price_alerts():
+    """Load all price alerts from MongoDB, Redis, or file"""
+    cache_key = 'price_alerts'
+    
+    # Check memory cache first
+    cached = memory_cache.get(cache_key)
+    if cached is not None:
+        return cached
+    
+    try:
+        if mongo_db is not None:
+            alerts_doc = mongo_db.price_alerts.find_one({'_id': 'all_alerts'})
+            if alerts_doc:
+                alerts = alerts_doc.get('alerts', [])
+                memory_cache.set(cache_key, alerts)
+                return alerts
+                
+        if redis_client:
+            data = redis_client.get(cache_key)
+            if data:
+                alerts = json.loads(data)
+                memory_cache.set(cache_key, alerts)
+                return alerts
+        elif os.path.exists(ALERTS_FILE):
+            with open(ALERTS_FILE, 'r') as f:
+                alerts = json.load(f)
+                memory_cache.set(cache_key, alerts)
+                return alerts
+    except Exception as e:
+        logger.error(f"Error loading price alerts: {e}")
+    
+    return []
+
+
+def save_price_alerts(alerts):
+    """Save price alerts to MongoDB, Redis, or file"""
+    cache_key = 'price_alerts'
+    
+    # Update cache immediately
+    memory_cache.set(cache_key, alerts)
+    
+    try:
+        if mongo_db is not None:
+            mongo_db.price_alerts.replace_one(
+                {'_id': 'all_alerts'}, 
+                {'_id': 'all_alerts', 'alerts': alerts}, 
+                upsert=True
+            )
+            
+        if redis_client:
+            redis_client.set(cache_key, json.dumps(alerts, cls=NumpyEncoder))
+        else:
+            with open(ALERTS_FILE, 'w') as f:
+                json.dump(alerts, f, indent=2, cls=NumpyEncoder)
+    except Exception as e:
+        logger.error(f"Error saving price alerts: {e}")
+
+
+def add_price_alert(user_id: int, chat_id: int, symbol: str, condition: str, target_price: float):
+    """
+    Add a new price alert.
+    
+    Args:
+        user_id: Telegram user ID
+        chat_id: Telegram chat ID for sending notification
+        symbol: Stock symbol (e.g., 'RELIANCE')
+        condition: '>' for above, '<' for below
+        target_price: Target price to trigger alert
+    
+    Returns:
+        Alert ID
+    """
+    import uuid
+    
+    alerts = load_price_alerts()
+    
+    alert_id = str(uuid.uuid4())[:8]  # Short unique ID
+    
+    alert = {
+        'id': alert_id,
+        'user_id': user_id,
+        'chat_id': chat_id,
+        'symbol': symbol.upper(),
+        'condition': condition,  # '>' or '<'
+        'target_price': target_price,
+        'created_at': datetime.now().isoformat(),
+        'triggered': False,
+        'triggered_at': None
+    }
+    
+    alerts.append(alert)
+    save_price_alerts(alerts)
+    
+    return alert_id
+
+
+def get_user_alerts(user_id: int):
+    """Get all alerts for a specific user"""
+    alerts = load_price_alerts()
+    return [a for a in alerts if a['user_id'] == user_id and not a.get('triggered')]
+
+
+def delete_alert(alert_id: str, user_id: int = None):
+    """
+    Delete an alert by ID.
+    If user_id is provided, only delete if it belongs to that user.
+    """
+    alerts = load_price_alerts()
+    
+    new_alerts = []
+    deleted = False
+    
+    for alert in alerts:
+        if alert['id'] == alert_id:
+            if user_id is None or alert['user_id'] == user_id:
+                deleted = True
+                continue  # Skip this alert (delete it)
+        new_alerts.append(alert)
+    
+    if deleted:
+        save_price_alerts(new_alerts)
+    
+    return deleted
+
+
+def get_all_active_alerts():
+    """Get all active (non-triggered) alerts"""
+    alerts = load_price_alerts()
+    return [a for a in alerts if not a.get('triggered')]
+
+
+def mark_alert_triggered(alert_id: str, current_price: float):
+    """Mark an alert as triggered"""
+    alerts = load_price_alerts()
+    
+    for alert in alerts:
+        if alert['id'] == alert_id:
+            alert['triggered'] = True
+            alert['triggered_at'] = datetime.now().isoformat()
+            alert['triggered_price'] = current_price
+            break
+    
+    save_price_alerts(alerts)
+
+
 def load_bot_settings():
     """Load bot settings - uses cache to reduce MongoDB reads"""
     # Check memory cache first
@@ -652,18 +801,110 @@ async def scheduled_scan_job():
     await run_chunked_scan(chat_id, "scanall")
 
 
+async def check_price_alerts_job():
+    """
+    Background job to check all active price alerts.
+    Runs every 5 minutes during market hours.
+    """
+    import yfinance as yf
+    
+    logger.info("🔔 Checking price alerts...")
+    
+    alerts = get_all_active_alerts()
+    if not alerts:
+        logger.info("No active alerts to check")
+        return
+    
+    # Group alerts by symbol to reduce API calls
+    symbols_to_check = set(a['symbol'] for a in alerts)
+    
+    for symbol in symbols_to_check:
+        try:
+            # Get current price
+            ticker = yf.Ticker(f"{symbol}.NS")
+            hist = ticker.history(period="1d")
+            
+            if hist.empty:
+                logger.warning(f"No data for {symbol}")
+                continue
+            
+            current_price = float(hist['Close'].iloc[-1])
+            
+            # Check all alerts for this symbol
+            symbol_alerts = [a for a in alerts if a['symbol'] == symbol]
+            
+            for alert in symbol_alerts:
+                triggered = False
+                condition = alert['condition']
+                target = alert['target_price']
+                
+                if condition == '>' and current_price > target:
+                    triggered = True
+                elif condition == '<' and current_price < target:
+                    triggered = True
+                
+                if triggered:
+                    # Mark as triggered
+                    mark_alert_triggered(alert['id'], current_price)
+                    
+                    # Send notification
+                    condition_text = "risen above" if condition == '>' else "fallen below"
+                    message = f"""🔔 <b>PRICE ALERT TRIGGERED!</b>
+
+📈 <b>{symbol}</b>
+
+💰 Current Price: ₹{current_price:,.2f}
+🎯 Your Target: {condition} ₹{target:,.2f}
+
+The stock has {condition_text} your target price!
+
+⏰ Triggered at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+<i>Use /alert to set new alerts</i>"""
+                    
+                    try:
+                        await application.bot.send_message(
+                            chat_id=alert['chat_id'],
+                            text=message,
+                            parse_mode='HTML'
+                        )
+                        logger.info(f"🔔 Alert triggered for {symbol}: {condition} {target}")
+                    except Exception as e:
+                        logger.error(f"Failed to send alert notification: {e}")
+                        
+        except Exception as e:
+            logger.error(f"Error checking price for {symbol}: {e}")
+    
+    logger.info(f"✅ Price alert check complete. Checked {len(symbols_to_check)} symbols.")
+
+
 def setup_scheduler(settings):
     """Configure scheduler jobs"""
     global scheduler
     
-    # Remove existing jobs
+    # Remove existing jobs (except alert checker)
     properties = scheduler.get_jobs()
     for job in properties:
-        scheduler.remove_job(job.id)
+        if job.id != 'price_alert_checker':
+            scheduler.remove_job(job.id)
+    
+    tz = pytz.timezone('Asia/Kolkata')
+    
+    # Always add price alert checker (every 5 minutes during market hours)
+    # Market hours: 9:15 AM - 3:30 PM IST
+    try:
+        scheduler.add_job(
+            check_price_alerts_job,
+            'interval',
+            minutes=5,
+            id='price_alert_checker',
+            replace_existing=True
+        )
+        logger.info("✅ Price alert checker scheduled (every 5 minutes)")
+    except Exception as e:
+        logger.error(f"Failed to schedule price alert checker: {e}")
     
     if settings.get('daily_scan_enabled'):
-        tz = pytz.timezone('Asia/Kolkata')
-        
         # Schedule all times from config
         try:
             scheduled_count = 0
@@ -832,12 +1073,18 @@ Welcome! I can scan NSE stocks using Mark Minervini's Trend Template.
 <b>📊 Quick Commands:</b>
 /scan - Quick scan (top 50 stocks)
 /check SYMBOL - Check specific stock
-/autodaily [on/off] - Enable daily 6PM scan ⏰
+/autodaily [on/off] - Enable daily scans ⏰
 
 <b>🤖 AI Analysis:</b>
 /ai SYMBOL - Get AI entry/stop-loss levels
 
-<b>🔄 Full Scans (with progress):</b>
+<b>� Price Alerts:</b>
+/alert SYMBOL > PRICE - Alert when above
+/alert SYMBOL < PRICE - Alert when below
+/alerts - View your active alerts
+/delalert ID - Delete an alert
+
+<b>�🔄 Full Scans (with progress):</b>
 /fullscan - Nifty 500 scan (~500 stocks)
 /scanall - ALL NSE stocks (~2000 stocks)
 /progress - Check scan progress
@@ -847,16 +1094,13 @@ Welcome! I can scan NSE stocks using Mark Minervini's Trend Template.
 <b>📋 Results:</b>
 /list - Show latest scan results
 /list all - Summary of all scan types
-/list quick - Quick scan results only
-/list fullscan - Full scan results only
-/list scanall - All NSE scan results only
 /listquick, /listfull, /listall - Shortcuts
 
 <b>ℹ️ Info:</b>
 /nse - Show all available stocks
 /help - Show this message
 
-✨ <i>Each scan type saves results separately!</i>
+✨ <i>Price alerts checked every 5 minutes!</i>
     """
     await update.message.reply_text(welcome.strip(), parse_mode='HTML')
 
@@ -1273,6 +1517,149 @@ async def list_all_nse(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await list_results(update, context)
 
 
+# ============ PRICE ALERT COMMANDS ============
+
+async def alert_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Set a price alert for a stock.
+    Usage:
+        /alert RELIANCE > 2500  - Alert when price goes above ₹2500
+        /alert TCS < 3800       - Alert when price drops below ₹3800
+    """
+    if not context.args or len(context.args) < 3:
+        await update.message.reply_text(
+            "🔔 <b>Price Alert Usage:</b>\n\n"
+            "<code>/alert SYMBOL &gt; PRICE</code> - Alert when above\n"
+            "<code>/alert SYMBOL &lt; PRICE</code> - Alert when below\n\n"
+            "<b>Examples:</b>\n"
+            "/alert RELIANCE > 2500\n"
+            "/alert TCS < 3800\n"
+            "/alert INFY > 1500\n\n"
+            "💡 Use /alerts to see your active alerts\n"
+            "🗑️ Use /delalert ID to remove an alert",
+            parse_mode='HTML'
+        )
+        return
+    
+    try:
+        # Parse arguments: SYMBOL CONDITION PRICE
+        symbol = context.args[0].upper()
+        condition = context.args[1]
+        price_str = context.args[2].replace(',', '').replace('₹', '')
+        target_price = float(price_str)
+        
+        # Validate condition
+        if condition not in ['>', '<', 'above', 'below']:
+            await update.message.reply_text(
+                "❌ Invalid condition. Use > (above) or < (below)\n"
+                "Example: /alert RELIANCE > 2500"
+            )
+            return
+        
+        # Normalize condition
+        if condition == 'above':
+            condition = '>'
+        elif condition == 'below':
+            condition = '<'
+        
+        # Validate symbol exists (optional - quick check)
+        user_id = update.effective_user.id
+        chat_id = update.effective_chat.id
+        
+        # Create the alert
+        alert_id = add_price_alert(user_id, chat_id, symbol, condition, target_price)
+        
+        condition_text = "rises above" if condition == '>' else "falls below"
+        
+        await update.message.reply_text(
+            f"✅ <b>Alert Created!</b>\n\n"
+            f"🔔 Alert ID: <code>{alert_id}</code>\n"
+            f"📈 Stock: <b>{symbol}</b>\n"
+            f"🎯 Condition: {condition} ₹{target_price:,.2f}\n\n"
+            f"You'll be notified when {symbol} {condition_text} ₹{target_price:,.2f}\n\n"
+            f"⏰ Alerts checked every 5 minutes\n"
+            f"💡 Use /alerts to view all alerts\n"
+            f"🗑️ Use /delalert {alert_id} to remove",
+            parse_mode='HTML'
+        )
+        
+    except ValueError:
+        await update.message.reply_text(
+            "❌ Invalid price format.\n"
+            "Example: /alert RELIANCE > 2500"
+        )
+    except Exception as e:
+        logger.error(f"Error creating alert: {e}")
+        await update.message.reply_text(f"❌ Error: {str(e)}")
+
+
+async def alerts_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Show all active alerts for the user"""
+    user_id = update.effective_user.id
+    alerts = get_user_alerts(user_id)
+    
+    if not alerts:
+        await update.message.reply_text(
+            "📋 <b>No Active Alerts</b>\n\n"
+            "You don't have any price alerts set.\n\n"
+            "💡 Create one with:\n"
+            "/alert SYMBOL > PRICE\n"
+            "/alert SYMBOL < PRICE",
+            parse_mode='HTML'
+        )
+        return
+    
+    message = f"🔔 <b>Your Price Alerts ({len(alerts)})</b>\n\n"
+    
+    for i, alert in enumerate(alerts, 1):
+        symbol = alert['symbol']
+        condition = alert['condition']
+        target = alert['target_price']
+        alert_id = alert['id']
+        created = alert['created_at'][:10] if alert.get('created_at') else 'Unknown'
+        
+        condition_text = "above" if condition == '>' else "below"
+        
+        message += f"{i}. <b>{symbol}</b> {condition} ₹{target:,.2f}\n"
+        message += f"   📅 Created: {created} | ID: <code>{alert_id}</code>\n\n"
+    
+    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    message += "🗑️ Delete: /delalert ID\n"
+    message += "⏰ Checked every 5 minutes"
+    
+    await update.message.reply_text(message, parse_mode='HTML')
+
+
+async def delalert_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Delete a price alert by ID"""
+    if not context.args:
+        await update.message.reply_text(
+            "❌ Please provide the alert ID.\n"
+            "Usage: /delalert ALERT_ID\n\n"
+            "💡 Use /alerts to see your alert IDs"
+        )
+        return
+    
+    alert_id = context.args[0]
+    user_id = update.effective_user.id
+    
+    deleted = delete_alert(alert_id, user_id)
+    
+    if deleted:
+        await update.message.reply_text(
+            f"✅ <b>Alert Deleted</b>\n\n"
+            f"Alert <code>{alert_id}</code> has been removed.\n\n"
+            f"💡 Use /alerts to see remaining alerts",
+            parse_mode='HTML'
+        )
+    else:
+        await update.message.reply_text(
+            f"❌ Alert <code>{alert_id}</code> not found or doesn't belong to you.\n\n"
+            f"💡 Use /alerts to see your alert IDs",
+            parse_mode='HTML'
+        )
+
+
 async def ai_analysis(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Get AI-powered entry/stop-loss analysis using Google Gemini"""
     if not context.args:
@@ -1370,6 +1757,9 @@ async def setup_webhook():
     application.add_handler(CommandHandler("listquick", list_quick))
     application.add_handler(CommandHandler("listfull", list_full))
     application.add_handler(CommandHandler("listall", list_all_nse))
+    application.add_handler(CommandHandler("alert", alert_command))
+    application.add_handler(CommandHandler("alerts", alerts_command))
+    application.add_handler(CommandHandler("delalert", delalert_command))
     application.add_handler(CommandHandler("progress", progress_command))
     application.add_handler(CommandHandler("stop", stop_command))
     application.add_handler(CommandHandler("resume", resume_command))
