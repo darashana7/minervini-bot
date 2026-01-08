@@ -1078,13 +1078,13 @@ Welcome! I can scan NSE stocks using Mark Minervini's Trend Template.
 <b>🤖 AI Analysis:</b>
 /ai SYMBOL - Get AI entry/stop-loss levels
 
-<b>� Price Alerts:</b>
-/alert SYMBOL > PRICE - Alert when above
-/alert SYMBOL < PRICE - Alert when below
+<b>🔔 Price Alerts:</b>
+/alert SYMBOL &gt; PRICE - Alert when above
+/alert SYMBOL &lt; PRICE - Alert when below
 /alerts - View your active alerts
 /delalert ID - Delete an alert
 
-<b>�🔄 Full Scans (with progress):</b>
+<b>🔄 Full Scans (with progress):</b>
 /fullscan - Nifty 500 scan (~500 stocks)
 /scanall - ALL NSE stocks (~2000 stocks)
 /progress - Check scan progress
