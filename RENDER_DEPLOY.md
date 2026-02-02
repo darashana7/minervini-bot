@@ -42,8 +42,27 @@ git push -u origin main
 
 5. Add Environment Variables:
    - `BOT_TOKEN` = `8557128929:AAFrPNOsb-T_ygpaqu2MI0DbuZYEA2JT1rg`
+   - `MONGO_URI` = (Optional but **HIGHLY RECOMMENDED** - Get from [MongoDB Atlas](#-step-45-set-up-mongodb-atlas-free))
 
 6. Click **"Create Web Service"**
+
+---
+
+## 🍃 Step 4.5: Set Up MongoDB Atlas (FREE) 
+
+**⚠️ IMPORTANT:** Without MongoDB, your data (scan results, alerts, settings) will be **deleted every time Render restarts** (~every 15 minutes on free tier).
+
+**✅ Solution:** Use **MongoDB Atlas FREE tier** (512 MB forever free!)
+
+📖 **Detailed Guide:** See [MONGODB_SETUP.md](./MONGODB_SETUP.md) for complete step-by-step instructions.
+
+**Quick Summary:**
+1. Create free account at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
+2. Create M0 FREE cluster (512 MB)
+3. Create database user + get connection string
+4. Add connection string to Render as `MONGO_URI` environment variable
+
+✨ Once configured, all your bot data will persist forever!
 
 ---
 
@@ -134,14 +153,31 @@ https://api.telegram.org/bot8557128929:AAFrPNOsb-T_ygpaqu2MI0DbuZYEA2JT1rg/getWe
 
 ## 🎯 Commands Available
 
+**Quick Commands:**
 - `/start` - Welcome message
 - `/help` - Show help
 - `/scan` - Quick scan (top 50 stocks) ✅ Works on free tier
 - `/check SYMBOL` - Check specific stock ✅ Works on free tier
 - `/list` - Show results
 - `/nse` - List all stocks
+
+**Full Scans:**
 - `/fullscan` - Nifty 500 scan ⚠️ May timeout
-- `/scanall` - All 2000 stocks ❌ Will likely timeout
+- `/scanall` - All 2000 stocks ⚠️ May timeout
+- `/progress` - Check scan progress
+- `/stop` - Stop scan
+- `/resume` - Resume scan
+
+**Price Alerts:**
+- `/alert SYMBOL > PRICE` - Set price alert
+- `/alerts` - View active alerts
+- `/delalert ID` - Delete alert
+
+**Database (MongoDB):**
+- `/db status` - Check MongoDB connection & stats 🍃
+- `/db latest` - View latest scan data
+- `/db alerts` - View stored alerts
+- `/db clear` - Clear all data (admin only)
 
 ---
 

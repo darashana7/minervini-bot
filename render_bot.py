@@ -1096,6 +1096,11 @@ Welcome! I can scan NSE stocks using Mark Minervini's Trend Template.
 /list all - Summary of all scan types
 /listquick, /listfull, /listall - Shortcuts
 
+<b>🍃 Database:</b>
+/db status - Check MongoDB connection
+/db latest - View latest scan data
+/db alerts - View stored alerts
+
 <b>ℹ️ Info:</b>
 /nse - Show all available stocks
 /help - Show this message
@@ -1736,6 +1741,225 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
+async def db_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Database inspection command for MongoDB.
+    Usage:
+        /db status - Show connection status and collection stats
+        /db latest - Show last 5 scan results
+        /db alerts - Show active alerts count
+        /db clear - Clear all data (admin only)
+    """
+    # Admin check (you can customize this)
+    ADMIN_USER_IDS = [update.effective_user.id]  # Add your Telegram user ID here
+    
+    args = context.args
+    
+    if not args:
+        # Default: show status
+        args = ['status']
+    
+    subcommand = args[0].lower()
+    
+    if subcommand == 'status':
+        await db_status(update)
+    elif subcommand == 'latest':
+        await db_latest(update)
+    elif subcommand == 'alerts':
+        await db_alerts(update)
+    elif subcommand == 'clear':
+        # Only admins can clear
+        if update.effective_user.id in ADMIN_USER_IDS:
+            await db_clear(update)
+        else:
+            await update.message.reply_text("❌ Admin only command")
+    else:
+        await update.message.reply_text(
+            "🍃 <b>Database Commands</b>\n\n"
+            "/db status - Connection & collection stats\n"
+            "/db latest - Last 5 scan results\n"
+            "/db alerts - Active alerts count\n"
+            "/db clear - Clear all data (admin)",
+            parse_mode='HTML'
+        )
+
+
+async def db_status(update: Update):
+    """Show database connection status and document counts"""
+    message = "🍃 <b>MongoDB Database Status</b>\n\n"
+    
+    # Check connection
+    if mongo_db is not None:
+        try:
+            # Ping to verify connection
+            mongo_client.admin.command('ping')
+            message += "✅ <b>MongoDB:</b> Connected\n\n"
+            
+            # Get collection stats
+            message += "📊 <b>Collections:</b>\n"
+            
+            collections = [
+                ('scan_results', 'Scan Results'),
+                ('scan_state', 'Scan State'),
+                ('price_alerts', 'Price Alerts'),
+                ('bot_settings', 'Bot Settings')
+            ]
+            
+            for coll_name, display_name in collections:
+                try:
+                    count = mongo_db[coll_name].count_documents({})
+                    message += f"  • {display_name}: {count} doc(s)\n"
+                except Exception:
+                    message += f"  • {display_name}: N/A\n"
+            
+            # Get database stats (size)
+            try:
+                db_stats = mongo_db.command('dbStats')
+                size_mb = db_stats.get('dataSize', 0) / (1024 * 1024)
+                message += f"\n💾 <b>Size:</b> {size_mb:.2f} MB / 512 MB (free tier)\n"
+            except Exception:
+                pass
+                
+        except Exception as e:
+            message += f"❌ <b>MongoDB:</b> Connection Failed\n"
+            message += f"Error: {str(e)}\n\n"
+    elif redis_client:
+        message += "✅ <b>Redis:</b> Connected\n"
+        message += "ℹ️ Using Redis for data storage\n\n"
+    else:
+        message += "📁 <b>Storage:</b> Local JSON files\n"
+        message += "⚠️ Data will be lost on restart!\n\n"
+        message += "👉 Set up MongoDB Atlas for persistence:\n"
+        message += "See <b>MONGODB_SETUP.md</b>\n"
+    
+    # Cache stats
+    message += f"\n🔥 <b>Memory Cache:</b>\n"
+    message += f"  • Active entries: {len(memory_cache._cache)}\n"
+    
+    await update.message.reply_text(message, parse_mode='HTML')
+
+
+async def db_latest(update: Update):
+    """Show latest scan results from database"""
+    message = "📊 <b>Latest Scan Results</b>\n\n"
+    
+    try:
+        # Check all scan types
+        scan_types = ['quick', 'fullscan', 'scanall']
+        found_any = False
+        
+        for scan_type in scan_types:
+            results = load_results_by_type(scan_type)
+            stocks = results.get('stocks', [])
+            completed = results.get('completed_at', None)
+            
+            if stocks:
+                found_any = True
+                scan_names = {
+                    'quick': '⚡ Quick Scan',
+                    'fullscan': '📊 Full Scan',
+                    'scanall': '🌐 All NSE'
+                }
+                
+                name = scan_names.get(scan_type, scan_type)
+                message += f"<b>{name}</b>\n"
+                message += f"  • Found: {len(stocks)} stocks\n"
+                
+                if completed:
+                    # Format timestamp
+                    from datetime import datetime
+                    try:
+                        dt = datetime.fromisoformat(completed)
+                        time_str = dt.strftime('%Y-%m-%d %H:%M')
+                        message += f"  • Time: {time_str}\n"
+                    except:
+                        message += f"  • Time: {completed[:19]}\n"
+                
+                # Show top 5 stocks
+                message += "  • Top 5:\n"
+                for stock in stocks[:5]:
+                    symbol = stock.get('symbol', 'N/A')
+                    price = stock.get('price', 0)
+                    message += f"    - {symbol}: ₹{price:,.2f}\n"
+                
+                message += "\n"
+        
+        if not found_any:
+            message += "❌ No scan results found\n"
+            message += "Run /scan to start scanning!\n"
+    
+    except Exception as e:
+        message += f"❌ Error loading results: {str(e)}\n"
+    
+    await update.message.reply_text(message, parse_mode='HTML')
+
+
+async def db_alerts(update: Update):
+    """Show active price alerts count and details"""
+    message = "🔔 <b>Price Alerts Database</b>\n\n"
+    
+    try:
+        alerts = load_price_alerts()
+        active_alerts = [a for a in alerts if not a.get('triggered', False)]
+        triggered_alerts = [a for a in alerts if a.get('triggered', False)]
+        
+        message += f"📊 <b>Statistics:</b>\n"
+        message += f"  • Active: {len(active_alerts)}\n"
+        message += f"  • Triggered: {len(triggered_alerts)}\n"
+        message += f"  • Total: {len(alerts)}\n\n"
+        
+        if active_alerts:
+            message += f"<b>Active Alerts (Latest 5):</b>\n"
+            for alert in active_alerts[:5]:
+                symbol = alert.get('symbol', 'N/A')
+                condition = alert.get('condition', '?')
+                target = alert.get('target_price', 0)
+                alert_id = alert.get('id', 'N/A')[:6]
+                message += f"  • {symbol} {condition} ₹{target:,.2f} (ID: {alert_id})\n"
+        else:
+            message += "No active alerts\n"
+    
+    except Exception as e:
+        message += f"❌ Error loading alerts: {str(e)}\n"
+    
+    await update.message.reply_text(message, parse_mode='HTML')
+
+
+async def db_clear(update: Update):
+    """Clear all database data (admin only)"""
+    try:
+        if mongo_db is not None:
+            # Clear all collections
+            mongo_db.scan_results.delete_many({})
+            mongo_db.scan_state.delete_many({})
+            mongo_db.price_alerts.delete_many({})
+            mongo_db.bot_settings.delete_many({})
+            
+            message = "✅ <b>MongoDB Cleared</b>\n\n"
+            message += "All collections have been emptied.\n"
+        elif redis_client:
+            redis_client.flushdb()
+            message = "✅ <b>Redis Cleared</b>\n\n"
+        else:
+            # Clear JSON files
+            clear_scan_state()
+            save_scan_results({"stocks": [], "scan_type": None, "completed_at": None, "total_scanned": 0})
+            save_price_alerts([])
+            message = "✅ <b>Local Files Cleared</b>\n\n"
+        
+        # Clear memory cache
+        memory_cache.clear()
+        message += "Memory cache also cleared.\n"
+        
+        await update.message.reply_text(message, parse_mode='HTML')
+    
+    except Exception as e:
+        await update.message.reply_text(f"❌ Error clearing database: {str(e)}")
+
+
+
+
+
 # ============ SETUP AND RUN ============
 
 async def setup_webhook():
@@ -1764,6 +1988,7 @@ async def setup_webhook():
     application.add_handler(CommandHandler("stop", stop_command))
     application.add_handler(CommandHandler("resume", resume_command))
     application.add_handler(CommandHandler("autodaily", autodaily_command))
+    application.add_handler(CommandHandler("db", db_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     
     await application.initialize()
